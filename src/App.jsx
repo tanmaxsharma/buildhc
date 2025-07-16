@@ -346,36 +346,68 @@ const featuredProfessionals = [
 ];
 
 function TopNav() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <div className="w-full bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-50">
       <div className="flex items-center justify-between">
         {/* Left side - Logo */}
         <div className="flex items-center">
-          <div className="text-2xl font-bold text-purple-600">HireCreative</div>
+          <div className="text-xl md:text-2xl font-bold text-purple-600">HireCreative</div>
         </div>
         
-        {/* Center - Search Bar */}
-        <div className="absolute left-1/2 transform -translate-x-1/2">
+        {/* Center - Search Bar (Hidden on mobile) */}
+        <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2">
           <div className="relative">
             <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
             <input
               type="text"
               placeholder="Search for creative professionals..."
-              className="w-96 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-64 lg:w-96 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
         </div>
         
         {/* Right side - Navigation */}
-        <div className="flex items-center space-x-4">
-          <button className="text-gray-600 hover:text-purple-600">Browse Talent</button>
-          <button className="text-gray-600 hover:text-purple-600">How it Works</button>
-          <button className="text-gray-600 hover:text-purple-600">👤 Sign In</button>
-          <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+        <div className="hidden md:flex items-center space-x-4">
+          <button className="text-gray-600 hover:text-purple-600 text-sm lg:text-base">Browse Talent</button>
+          <button className="text-gray-600 hover:text-purple-600 text-sm lg:text-base">How it Works</button>
+          <button className="text-gray-600 hover:text-purple-600 text-sm lg:text-base">👤 Sign In</button>
+          <button className="bg-purple-600 text-white px-3 lg:px-4 py-2 rounded-lg hover:bg-purple-700 text-sm lg:text-base">
             Get Started
           </button>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className="md:hidden p-2"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <span className="text-gray-600">☰</span>
+        </button>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden mt-4 pb-4 border-t border-gray-200">
+          <div className="flex flex-col space-y-3 mt-4">
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
+              <input
+                type="text"
+                placeholder="Search..."
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+            <button className="text-gray-600 hover:text-purple-600 text-left">Browse Talent</button>
+            <button className="text-gray-600 hover:text-purple-600 text-left">How it Works</button>
+            <button className="text-gray-600 hover:text-purple-600 text-left">👤 Sign In</button>
+            <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-center">
+              Get Started
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -389,7 +421,7 @@ function Sidebar({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 z-40 flex">
       <div className="fixed inset-0 bg-black bg-opacity-50" onClick={onClose}></div>
-      <div className="relative w-80 bg-white h-full overflow-y-auto">
+      <div className="relative w-full max-w-xs sm:max-w-sm md:w-80 bg-white h-full overflow-y-auto">
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold flex items-center">
@@ -445,14 +477,14 @@ function Sidebar({ isOpen, onClose }) {
 
 function CategoryCard({ category }) {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer">
-      <div className="flex items-center space-x-4">
-        <div className={`${category.color} w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl`}>
+    <div className="bg-white rounded-lg border border-gray-200 p-4 md:p-6 hover:shadow-md transition-shadow cursor-pointer">
+      <div className="flex items-center space-x-3 md:space-x-4">
+        <div className={`${category.color} w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center text-white text-lg md:text-xl`}>
           {category.icon}
         </div>
-        <div className="flex-1">
-          <h3 className="font-semibold text-gray-900 mb-1">{category.title}</h3>
-          <p className="text-sm text-gray-600 mb-2">{category.description}</p>
+        <div className="flex-1 min-w-0">
+          <h3 className="font-semibold text-gray-900 mb-1 text-sm md:text-base truncate">{category.title}</h3>
+          <p className="text-xs md:text-sm text-gray-600 mb-2 line-clamp-2">{category.description}</p>
           <p className="text-xs text-gray-500">{category.experts} experts</p>
         </div>
       </div>
@@ -464,8 +496,8 @@ function ProfessionalCard({ professional }) {
   return (
     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
       <div className="relative">
-        <div className="w-full h-48 bg-gradient-to-br from-purple-400 to-blue-500 flex items-center justify-center">
-          <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-2xl font-bold text-gray-700">
+        <div className="w-full h-40 md:h-48 bg-gradient-to-br from-purple-400 to-blue-500 flex items-center justify-center">
+          <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl font-bold text-gray-700">
             {professional.name.split(' ').map(n => n[0]).join('')}
           </div>
         </div>
@@ -477,9 +509,9 @@ function ProfessionalCard({ professional }) {
         </div>
       </div>
       
-      <div className="p-4">
+      <div className="p-3 md:p-4">
         <div className="mb-3">
-          <h3 className="font-bold text-gray-900 text-lg mb-1">{professional.name}</h3>
+          <h3 className="font-bold text-gray-900 text-base md:text-lg mb-1 truncate">{professional.name}</h3>
           <div className="flex items-center space-x-1 mb-2">
             <span className="text-yellow-400">⭐</span>
             <span className="text-sm font-semibold">{professional.rating}</span>
@@ -487,8 +519,8 @@ function ProfessionalCard({ professional }) {
           </div>
         </div>
         
-        <p className="text-sm text-gray-700 font-medium mb-1">{professional.title}</p>
-        <p className="text-xs text-gray-500 mb-3">{professional.location}</p>
+        <p className="text-sm text-gray-700 font-medium mb-1 truncate">{professional.title}</p>
+        <p className="text-xs text-gray-500 mb-3 truncate">{professional.location}</p>
         
         <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
           <span className="flex items-center">
@@ -502,11 +534,11 @@ function ProfessionalCard({ professional }) {
         </div>
         
         <div className="flex items-center justify-between">
-          <div className="text-xl font-bold text-gray-900">
+          <div className="text-lg md:text-xl font-bold text-gray-900">
             ${professional.hourlyRate}
             <span className="text-sm font-normal text-gray-500">/hour</span>
           </div>
-          <button className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition-colors font-medium">
+          <button className="bg-purple-600 text-white px-3 md:px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition-colors font-medium">
             Hire Now
           </button>
         </div>
@@ -519,17 +551,17 @@ function BrowseSection() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16">
+      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-8 md:py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-6">Find the Perfect Creative Professional</h1>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
+          <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 md:mb-6">Find the Perfect Creative Professional</h1>
+          <p className="text-sm md:text-lg lg:text-xl mb-6 md:mb-8 max-w-3xl mx-auto">
             Browse through thousands of vetted creative professionals ready to bring your vision to life.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            <button className="bg-white text-purple-600 px-6 md:px-8 py-2 md:py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base">
               Start Browsing
             </button>
-            <button className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+            <button className="border border-white text-white px-6 md:px-8 py-2 md:py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors text-sm md:text-base">
               Post a Project
             </button>
           </div>
@@ -537,15 +569,15 @@ function BrowseSection() {
       </div>
 
       {/* Categories Section */}
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Browse by Category</h2>
-          <p className="text-lg text-gray-600">
+      <div className="max-w-6xl mx-auto px-4 py-8 md:py-16">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Browse by Category</h2>
+          <p className="text-base md:text-lg text-gray-600">
             Find the right creative professional for your specific needs
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
           {creativeCategories.map(category => (
             <CategoryCard key={category.id} category={category} />
           ))}
@@ -553,22 +585,22 @@ function BrowseSection() {
       </div>
 
       {/* Featured Professionals Section */}
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Professionals</h2>
-          <p className="text-lg text-gray-600">
+      <div className="max-w-6xl mx-auto px-4 py-8 md:py-16">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Featured Professionals</h2>
+          <p className="text-base md:text-lg text-gray-600">
             Handpicked top-rated professionals available for hire
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {featuredProfessionals.map(professional => (
             <ProfessionalCard key={professional.id} professional={professional} />
           ))}
         </div>
         
-        <div className="text-center mt-12">
-          <button className="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+        <div className="text-center mt-8 md:mt-12">
+          <button className="bg-purple-600 text-white px-6 md:px-8 py-2 md:py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors text-sm md:text-base">
             View All Professionals
           </button>
         </div>
@@ -619,27 +651,27 @@ function HowItWorksSection() {
   ];
 
   return (
-    <div className="bg-gray-100 py-16">
+    <div className="bg-gray-100 py-8 md:py-16">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">How It Works</h2>
+          <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
             Get started in minutes, not days. Our streamlined process makes hiring creative talent as easy as online shopping.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {steps.map((step, index) => (
             <div key={step.step} className="text-center">
-              <div className="relative mb-6">
-                <div className={`${step.color} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                  <span className="text-2xl">{step.icon}</span>
+              <div className="relative mb-4 md:mb-6">
+                <div className={`${step.color} w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
+                  <span className="text-lg md:text-2xl">{step.icon}</span>
                 </div>
-                <div className="absolute -top-2 -right-2 bg-white border-2 border-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
-                  <span className="text-sm font-bold text-gray-700">{step.step}</span>
+                <div className="absolute -top-2 -right-2 bg-white border-2 border-gray-200 rounded-full w-6 h-6 md:w-8 md:h-8 flex items-center justify-center">
+                  <span className="text-xs md:text-sm font-bold text-gray-700">{step.step}</span>
                 </div>
               </div>
-              <h3 className="font-bold text-lg text-gray-900 mb-3">{step.title}</h3>
+              <h3 className="font-bold text-base md:text-lg text-gray-900 mb-2 md:mb-3">{step.title}</h3>
               <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
             </div>
           ))}
