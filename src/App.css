@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  background-color: black;
+}
+
+.reel-container {
+  height: calc(100vh - 120px);
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.reel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.reel-card {
+  scroll-snap-align: start;
+  height: calc(100vh - 120px);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  position: relative;
+  background-color: black;
+}
