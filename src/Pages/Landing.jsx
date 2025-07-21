@@ -657,10 +657,12 @@ const Landing = () => {
               connect instantly, and hire the top 1% of talent.
             </p>
 
-            <button className="bg-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-700 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105">
-              <span>Start Hiring</span>
-              <ArrowRight className="w-5 h-5" />
-            </button>
+            <Link to="/discover">
+              <button className="bg-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-700 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105">
+                <span>Start Hiring</span>
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </Link>
             {/* NOTE: Scroll·Select·Hired row moved BELOW the grid to center it across full hero */}
           </div>
 
