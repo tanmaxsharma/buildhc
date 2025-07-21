@@ -193,7 +193,10 @@ const Header = () => {
 
           <div className="hidden md:flex">
             <Link to="/discover">
-              <button className="bg-gray-900 text-white px-6 py-2 rounded-full font-medium hover:bg-gray-800 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl">
+              <button
+                type="button"
+                className="bg-gray-900 text-white px-6 py-2 rounded-full font-medium hover:bg-gray-800 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl cursor-pointer"
+              >
                 Discover Talent
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -658,11 +661,15 @@ const Landing = () => {
             </p>
 
             <Link to="/discover">
-              <button className="bg-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-700 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105">
+              <button
+                type="button"
+                className="bg-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-700 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer"
+              >
                 <span>Start Hiring</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
             </Link>
+
             {/* NOTE: Scroll·Select·Hired row moved BELOW the grid to center it across full hero */}
           </div>
 
