@@ -1,23 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ArrowRight, Menu, X, Play, Pause } from "lucide-react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "@studio-freight/lenis";
+
 
 /* -----------------------------------------------------------
  * PUBLIC TEST VIDEO URLS (direct MP4 streams, cross‑origin friendly)
- * ----------------------------------------------------------- */
+ * ----------------------------------------------------------- */ 
 const VIDEO_SOURCES = {
   flower:
-    "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  bunny: "https://www.w3schools.com/html/mov_bbb.mp4",
-  bear: "https://www.w3schools.com/html/movie.mp4",
-  sample5s: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
-  sample10s: "https://samplelib.com/lib/preview/mp4/sample-10s.mp4",
-  ocean: "https://samplelib.com/lib/preview/mp4/sample-15s.mp4",
-  city: "https://samplelib.com/lib/preview/mp4/sample-20s.mp4",
+    "https://videos.pexels.com/video-files/4464847/4464847-uhd_2560_1440_25fps.mp4",
+  bunny: "https://videos.pexels.com/video-files/8100336/8100336-uhd_2732_1440_25fps.mp4",
+  bear: "https://videos.pexels.com/video-files/30063526/12895043_1920_1080_25fps.mp4",
+  sample5s: "https://videos.pexels.com/video-files/6980544/6980544-uhd_2560_1440_25fps.mp4",
+  sample10s: "https://videos.pexels.com/video-files/2235742/2235742-hd_1280_720_30fps.mp4",
+  ocean: "https://videos.pexels.com/video-files/7414127/7414127-hd_1920_1080_24fps.mp4",
+  city: "https://videos.pexels.com/video-files/2889410/2889410-hd_1920_1080_30fps.mp4",
   forest:
-    "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4",
-  night: "https://sample-videos.com/video321/mp4/720/wave_720.mp4",
-  hero: "https://res.cloudinary.com/dhtp47auy/video/upload/v1753077039/reel_uadkgg.mp4", // Hero video
+    "https://videos.pexels.com/video-files/33048633/14085868_1920_1080_25fps.mp4",
+  night: "https://videos.pexels.com/video-files/7514220/7514220-uhd_2560_1440_25fps.mp4",
+  hero: "https://videos.pexels.com/video-files/4962719/4962719-uhd_2560_1440_25fps.mp4", // Hero video
 };
 
 /* -----------------------------------------------------------
@@ -190,14 +194,13 @@ const Header = () => {
           </nav>
 
           {/* CTA Button */}
-
           <div className="hidden md:flex">
             <Link to="/discover">
               <button
                 type="button"
                 className="bg-gray-900 text-white px-6 py-2 rounded-full font-medium hover:bg-gray-800 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl cursor-pointer"
               >
-                Discover Talent
+                Get Started
                 <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
@@ -230,7 +233,7 @@ const Header = () => {
                 Pricing
               </a>
               <button className="bg-gray-900 text-white px-6 py-2 rounded-full font-medium w-fit">
-                Start Hiring
+                Explore Talent
               </button>
             </nav>
           </div>
@@ -243,7 +246,7 @@ const Header = () => {
 /* ===========================================================
  * Hero Video Section Component
  * =========================================================== */
-const HeroVideoSection = () => {
+const HeroVideoSection = React.forwardRef((props, ref) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
@@ -252,7 +255,7 @@ const HeroVideoSection = () => {
     const video = videoRef.current;
     if (video) {
       video.play().catch(() => {
-        // Autoplay failed, which is common on mobile
+        // Autoplay may fail silently on some browsers.
       });
     }
   }, []);
@@ -279,7 +282,11 @@ const HeroVideoSection = () => {
   };
 
   return (
-    <section className="relative h-screen min-h-[600px] overflow-hidden bg-black">
+    <section
+      ref={ref}
+      id="hero-video-section"
+      className="relative h-screen min-h-[600px] overflow-hidden bg-black"
+    >
       {/* Video Background */}
       <video
         ref={videoRef}
@@ -294,87 +301,27 @@ const HeroVideoSection = () => {
       </video>
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="absolute inset-0 bg-black/40" />
 
-      {/* Content Overlay */}
-      {/* <div className="relative z-10 h-full flex items-center justify-center">
-        <div className="text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Where Creativity
-            <span className="block bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-              Meets Opportunity
-            </span>
-          </h2>
-          <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Watch how we connect world-class creative talent with innovative
-            companies. Your next breakthrough project starts here.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link
-              to="/discover"
-              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-300 flex items-center space-x-2 shadow-xl hover:shadow-2xl transform hover:scale-105"
-            >
-              <span>Explore Talent</span>
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
-        </div>
-      </div> */}
-      {/* Video Controls */}
-      {/* <div className="absolute bottom-8 right-8 flex space-x-2">
+      {/* Example: controls (kept hidden; uncomment if needed) */}
+      {/* <div className="absolute bottom-8 right-8 flex space-x-2 z-10">
         <button
           onClick={togglePlay}
           className="bg-white/20 backdrop-blur-sm p-3 rounded-full text-white hover:bg-white/30 transition-all duration-200"
         >
-          {isPlaying ? (
-            <Pause className="w-5 h-5" />
-          ) : (
-            <Play className="w-5 h-5" />
-          )}
+          {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
         </button>
         <button
           onClick={toggleMute}
           className="bg-white/20 backdrop-blur-sm p-3 rounded-full text-white hover:bg-white/30 transition-all duration-200"
         >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            {isMuted ? (
-              <path
-                fillRule="evenodd"
-                d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.824L4.725 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.725l3.658-3.824a1 1 0 011.617.824zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z"
-                clipRule="evenodd"
-              />
-            ) : (
-              <path
-                fillRule="evenodd"
-                d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.824L4.725 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.725l3.658-3.824a1 1 0 011.617.824zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            )}
-          </svg>
+          {isMuted ? "🔇" : "🔊"}
         </button>
-      </div> */}
-      {/* Scroll Indicator */}
-      {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center">
-        <div className="animate-bounce">
-          <svg
-            className="w-6 h-6 mx-auto mb-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
-          <p className="text-sm">Scroll to explore</p>
-        </div>
       </div> */}
     </section>
   );
-};
+});
+HeroVideoSection.displayName = "HeroVideoSection";
 
 /* ===========================================================
  * Auto Carousel Component
@@ -387,7 +334,6 @@ const AutoCarousel = () => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselData.length);
     }, 3000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -396,7 +342,6 @@ const AutoCarousel = () => {
       const cardWidth = 320; // w-80 = 320px
       const gap = 24; // gap-6 = 24px
       const scrollPosition = currentIndex * (cardWidth + gap);
-
       carouselRef.current.style.transform = `translateX(-${scrollPosition}px)`;
     }
   }, [currentIndex]);
@@ -404,15 +349,13 @@ const AutoCarousel = () => {
   const CarouselCard = ({ specialist }) => (
     <div className="w-80 h-96 bg-white rounded-3xl shadow-xl relative overflow-hidden flex-shrink-0 hover:shadow-2xl transition-all duration-500 hover:scale-105">
       {/* Background Circle */}
-      <div className="absolute top-8 right-8 w-64 h-64 bg-gradient-to-br from-cyan-300 to-teal-400 rounded-full -translate-y-16 translate-x-16"></div>
-
+      <div className="absolute top-8 right-8 w-64 h-64 bg-gradient-to-br from-cyan-300 to-teal-400 rounded-full -translate-y-16 translate-x-16" />
       {/* Title */}
       <div className="absolute top-8 left-8 z-10">
         <h3 className="text-xl font-bold text-gray-900 leading-tight max-w-48">
           {specialist.title}
         </h3>
       </div>
-
       {/* Profile Image */}
       <div className="absolute bottom-20 left-8 z-10">
         <img
@@ -421,7 +364,6 @@ const AutoCarousel = () => {
           className="w-32 h-32 rounded-2xl object-cover shadow-lg"
         />
       </div>
-
       {/* Tools */}
       <div className="absolute bottom-8 left-8 right-8 z-10">
         <div className="flex flex-wrap gap-2">
@@ -459,7 +401,6 @@ const AutoCarousel = () => {
               className="flex gap-6 transition-transform duration-700 ease-in-out"
               style={{ width: `${carouselData.length * 344}px` }}
             >
-              {/* Duplicate first few cards at the end for seamless loop */}
               {[...carouselData, ...carouselData.slice(0, 3)].map(
                 (specialist, index) => (
                   <CarouselCard
@@ -507,15 +448,13 @@ const VideoCard = ({ src, poster, label }) => {
       const p = el.play();
       if (p && typeof p.catch === "function") {
         p.catch(() => {
-          /* autoplay blocked; wait for user */
+          /* autoplay blocked */
         });
       }
     };
 
-    // try at mount
     tryPlay();
 
-    // observe visibility
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -577,12 +516,12 @@ const VideoCard = ({ src, poster, label }) => {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-      {/* Category label at top */}
+      {/* Category label */}
       <div className="absolute top-4 left-4 bg-gradient-to-r from-purple-600 to-blue-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-lg backdrop-blur-sm">
         {label}
       </div>
 
-      {/* Play icon appears if paused / errored */}
+      {/* Play icon on hover */}
       <div
         className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
           errored ? "opacity-100" : "opacity-0 group-hover:opacity-100"
@@ -620,7 +559,39 @@ const CreativeCard = ({ image, name, role, message, className = "" }) => (
   </div>
 );
 
+/* ===========================================================
+ * Landing Page (MAIN)
+ * =========================================================== */
 const Landing = () => {
+  // --- GSAP refs ---
+  const scrollRowRef = useRef(null); // Scroll · Select · Hired row
+  const heroVideoRef = useRef(null); // trigger element (video section)
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // --- LENIS SMOOTH SCROLL INIT ---
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true,
+      smoothTouch: true,
+    });
+
+    // Sync Lenis with GSAP ScrollTrigger
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000); // GSAP time is in seconds, Lenis expects ms
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    // Clean up Lenis on unmount
+    return () => {
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+      lenis.destroy();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       {/* HEADER */}
@@ -665,12 +636,10 @@ const Landing = () => {
                 type="button"
                 className="bg-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-700 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer"
               >
-                <span>Start Hiring</span>
+                <span>Explore Talent</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
             </Link>
-
-            {/* NOTE: Scroll·Select·Hired row moved BELOW the grid to center it across full hero */}
           </div>
 
           {/* Right Content - Creative Cards */}
@@ -710,9 +679,14 @@ const Landing = () => {
           </div>
         </div>
 
-        {/* Scroll · Select · Hired  */}
+        {/* Scroll · Select · Hired  --- GSAP LIFT TARGET */}
         <div className="mt-16 lg:mt-24 w-full flex justify-center px-4">
-          <div className="flex flex-row items-center justify-center gap-6 sm:gap-12 text-gray-800 flex-wrap">
+          <div
+            ref={scrollRowRef}
+            className="scroll-select-card flex flex-row items-center justify-center gap-6 sm:gap-12 text-gray-800 flex-wrap
+                       bg-white/90 backdrop-blur-md px-8 py-6 rounded-3xl border border-gray-200
+                       shadow-md will-change-transform transform-gpu"
+          >
             {/* Scroll */}
             <div className="flex flex-col items-center">
               <svg
@@ -779,14 +753,17 @@ const Landing = () => {
         </div>
       </div>
 
-      {/* HERO VIDEO SECTION */}
-      <HeroVideoSection />
+      {/* HERO VIDEO SECTION (ScrollTrigger trigger) */}
+      <HeroVideoSection ref={heroVideoRef} />
 
       {/* AUTO CAROUSEL SECTION */}
       <AutoCarousel />
 
       {/* PORTFOLIO VIDEO GRID */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10">
+      <section
+        id="explore"
+        className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10"
+      >
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
             Made with love, on HireCreatives
