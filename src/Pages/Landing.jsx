@@ -17,7 +17,7 @@ const VIDEO_SOURCES = {
   forest:
     "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4",
   night: "https://sample-videos.com/video321/mp4/720/wave_720.mp4",
-  hero: "https://samplelib.com/lib/preview/mp4/sample-30s.mp4", // Hero video
+  hero: "https://res.cloudinary.com/dhtp47auy/video/upload/v1753077039/reel_uadkgg.mp4", // Hero video
 };
 
 /* -----------------------------------------------------------
@@ -190,11 +190,14 @@ const Header = () => {
           </nav>
 
           {/* CTA Button */}
+
           <div className="hidden md:flex">
-            <button className="bg-gray-900 text-white px-6 py-2 rounded-full font-medium hover:bg-gray-800 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl">
-              Start Hiring
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            <Link to="/discover">
+              <button className="bg-gray-900 text-white px-6 py-2 rounded-full font-medium hover:bg-gray-800 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl">
+                Discover Talent
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -291,7 +294,7 @@ const HeroVideoSection = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Content Overlay */}
-      <div className="relative z-10 h-full flex items-center justify-center">
+      {/* <div className="relative z-10 h-full flex items-center justify-center">
         <div className="text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Where Creativity
@@ -313,10 +316,9 @@ const HeroVideoSection = () => {
             </Link>
           </div>
         </div>
-      </div>
-
+      </div> */}
       {/* Video Controls */}
-      <div className="absolute bottom-8 right-8 flex space-x-2">
+      {/* <div className="absolute bottom-8 right-8 flex space-x-2">
         <button
           onClick={togglePlay}
           className="bg-white/20 backdrop-blur-sm p-3 rounded-full text-white hover:bg-white/30 transition-all duration-200"
@@ -347,10 +349,9 @@ const HeroVideoSection = () => {
             )}
           </svg>
         </button>
-      </div>
-
+      </div> */}
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center">
+      {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center">
         <div className="animate-bounce">
           <svg
             className="w-6 h-6 mx-auto mb-2"
@@ -367,7 +368,7 @@ const HeroVideoSection = () => {
           </svg>
           <p className="text-sm">Scroll to explore</p>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };
@@ -647,7 +648,7 @@ const Landing = () => {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-            The Smarter Way to Hire Creative Talent.
+              The Smarter Way to Hire Creative Talent.
             </h1>
 
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-lg">
@@ -819,10 +820,14 @@ const Landing = () => {
               talent with innovative companies. Transform your projects with the
               power of creativity.
             </p>
-            <button className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-300 flex items-center space-x-2 mx-auto shadow-xl hover:shadow-2xl transform hover:scale-105">
-              <span>Get Started Today</span>
-              <ArrowRight className="w-5 h-5" />
-            </button>
+
+            {/* Get Started Button with Link */}
+            <Link to="/login">
+              <button className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-300 flex items-center space-x-2 mx-auto shadow-xl hover:shadow-2xl transform hover:scale-105">
+                <span>Get Started Today</span>
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </Link>
           </div>
         </div>
       </footer>
