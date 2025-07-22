@@ -1,27 +1,57 @@
 import React, { useState, useRef, useEffect } from "react";
-import { ArrowRight, Menu, X, Play, Pause } from "lucide-react";
 import { Link } from "react-router-dom";
+import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "@studio-freight/lenis";
 
+/* -----------------------------------------------------------
+ * Icons (union of both codebases)
+ * ----------------------------------------------------------- */
+import {
+  ArrowRight,
+  Menu,
+  X,
+  Play,
+  Pause,
+  /* From marketing sections */
+  Filter,
+  ShieldCheck,
+  CheckCircle2,
+  Zap,
+  DollarSign,
+  Users,
+  Globe2,
+  Search,
+  Video as VideoIcon,
+  FileCheck2,
+  Handshake,
+  Shield,
+  Timer,
+  Wallet,
+  Settings,
+} from "lucide-react";
 
 /* -----------------------------------------------------------
  * PUBLIC TEST VIDEO URLS (direct MP4 streams, cross‑origin friendly)
- * ----------------------------------------------------------- */ 
+ * ----------------------------------------------------------- */
 const VIDEO_SOURCES = {
   flower:
     "https://videos.pexels.com/video-files/4464847/4464847-uhd_2560_1440_25fps.mp4",
-  bunny: "https://videos.pexels.com/video-files/8100336/8100336-uhd_2732_1440_25fps.mp4",
+  bunny:
+    "https://videos.pexels.com/video-files/8100336/8100336-uhd_2732_1440_25fps.mp4",
   bear: "https://videos.pexels.com/video-files/30063526/12895043_1920_1080_25fps.mp4",
-  sample5s: "https://videos.pexels.com/video-files/6980544/6980544-uhd_2560_1440_25fps.mp4",
-  sample10s: "https://videos.pexels.com/video-files/2235742/2235742-hd_1280_720_30fps.mp4",
-  ocean: "https://videos.pexels.com/video-files/7414127/7414127-hd_1920_1080_24fps.mp4",
+  sample5s:
+    "https://videos.pexels.com/video-files/6980544/6980544-uhd_2560_1440_25fps.mp4",
+  sample10s:
+    "https://videos.pexels.com/video-files/2235742/2235742-hd_1280_720_30fps.mp4",
+  ocean:
+    "https://videos.pexels.com/video-files/7414127/7414127-hd_1920_1080_24fps.mp4",
   city: "https://videos.pexels.com/video-files/2889410/2889410-hd_1920_1080_30fps.mp4",
   forest:
     "https://videos.pexels.com/video-files/33048633/14085868_1920_1080_25fps.mp4",
-  night: "https://videos.pexels.com/video-files/7514220/7514220-uhd_2560_1440_25fps.mp4",
-  hero: "https://videos.pexels.com/video-files/4962719/4962719-uhd_2560_1440_25fps.mp4", // Hero video
+  night:
+    "https://videos.pexels.com/video-files/7514220/7514220-uhd_2560_1440_25fps.mp4",
+  hero: "https://res.cloudinary.com/dhtp47auy/video/upload/v1753077039/reel_uadkgg.mp4", // Hero video
 };
 
 /* -----------------------------------------------------------
@@ -303,7 +333,7 @@ const HeroVideoSection = React.forwardRef((props, ref) => {
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/40" />
 
-      {/* Example: controls (kept hidden; uncomment if needed) */}
+      {/* Optional Controls */}
       {/* <div className="absolute bottom-8 right-8 flex space-x-2 z-10">
         <button
           onClick={togglePlay}
@@ -435,7 +465,7 @@ const AutoCarousel = () => {
 /* ===========================================================
  * VideoCard component
  * =========================================================== */
-const VideoCard = ({ src, poster, label }) => {
+const VideoCard = ({ src, poster }) => {
   const vidRef = useRef(null);
   const [errored, setErrored] = useState(false);
   const [manuallyPlaying, setManuallyPlaying] = useState(false);
@@ -446,13 +476,8 @@ const VideoCard = ({ src, poster, label }) => {
 
     const tryPlay = () => {
       const p = el.play();
-      if (p && typeof p.catch === "function") {
-        p.catch(() => {
-          /* autoplay blocked */
-        });
-      }
+      if (p && typeof p.catch === "function") p.catch(() => {});
     };
-
     tryPlay();
 
     const io = new IntersectionObserver(
@@ -472,9 +497,7 @@ const VideoCard = ({ src, poster, label }) => {
     return () => io.disconnect();
   }, [manuallyPlaying]);
 
-  const handleError = () => {
-    setErrored(true);
-  };
+  const handleError = () => setErrored(true);
 
   const handleToggle = () => {
     const el = vidRef.current;
@@ -496,7 +519,7 @@ const VideoCard = ({ src, poster, label }) => {
       {errored ? (
         <img
           src={poster}
-          alt={label}
+          alt=""
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
       ) : (
@@ -513,26 +536,8 @@ const VideoCard = ({ src, poster, label }) => {
         />
       )}
 
-      {/* Dark overlay */}
+      {/* Hover dark overlay */}
       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-      {/* Category label */}
-      <div className="absolute top-4 left-4 bg-gradient-to-r from-purple-600 to-blue-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-lg backdrop-blur-sm">
-        {label}
-      </div>
-
-      {/* Play icon on hover */}
-      <div
-        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
-          errored ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-        }`}
-      >
-        {!errored && (
-          <div className="w-16 h-16 bg-black/60 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/80 transition-all duration-200">
-            <div className="w-0 h-0 border-l-[18px] border-t-[12px] border-b-[12px] border-l-white border-t-transparent border-b-transparent ml-1" />
-          </div>
-        )}
-      </div>
     </div>
   );
 };
@@ -557,6 +562,512 @@ const CreativeCard = ({ image, name, role, message, className = "" }) => (
       </div>
     </div>
   </div>
+);
+
+/* ===========================================================
+ * ============  MARKETING SECTIONS FROM PREV CODE  ==========
+ * Slight ID suffixes to avoid collisions with existing anchors
+ * =========================================================== */
+
+/* Scroll-trigger animation hook */
+const useScrollAnimation = () => {
+  const elementsRef = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in-up");
+            observer.unobserve(entry.target); // animate once
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "50px" }
+    );
+
+    elementsRef.current.forEach((element) => {
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const addToRefs = (el) => {
+    if (el && !elementsRef.current.includes(el)) {
+      elementsRef.current.push(el);
+    }
+  };
+
+  return addToRefs;
+};
+
+/* Generic UI Primitives */
+const PrimaryButton = ({ children, href = "#", className = "" }) => (
+  <a
+    href={href}
+    className={`inline-flex items-center gap-2 rounded-full px-6 py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl ${className}`}
+  >
+    {children}
+    <ArrowRight className="h-4 w-4" />
+  </a>
+);
+
+const SecondaryButton = ({ children, href = "#", className = "" }) => (
+  <a
+    href={href}
+    className={`inline-flex items-center gap-2 rounded-full px-6 py-3 font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition-all duration-300 hover:scale-105 ${className}`}
+  >
+    {children}
+    <ArrowRight className="h-4 w-4" />
+  </a>
+);
+
+const Section = ({
+  id,
+  children,
+  className = "",
+  containerClass = "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+}) => (
+  <section id={id} className={`py-16 md:py-24 ${className}`}>
+    <div className={containerClass}>{children}</div>
+  </section>
+);
+
+const SectionHeader = ({
+  kicker,
+  title,
+  subtitle,
+  align = "center",
+  className = "",
+}) => {
+  const alignMap = {
+    center: "text-center mx-auto",
+    left: "text-left",
+    right: "text-right ml-auto",
+  };
+  return (
+    <div className={`max-w-3xl ${alignMap[align]} ${className}`}>
+      {kicker && (
+        <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-indigo-600">
+          {kicker}
+        </p>
+      )}
+      {title && (
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+          {title}
+        </h2>
+      )}
+      {subtitle && (
+        <p className="mt-4 text-lg text-gray-600 leading-relaxed">{subtitle}</p>
+      )}
+    </div>
+  );
+};
+
+/* Unlock Elite Creatives Section */
+const Unlock = () => {
+  const addToRefs = useScrollAnimation();
+  return (
+    <Section id="unlock-elite">
+      <div className="grid items-center gap-12 md:grid-cols-2">
+        <div ref={addToRefs} className="section-hidden order-2 md:order-1">
+          <SectionHeader
+            kicker="Elite Talent"
+            title="Unlock Elite Creatives, Effortlessly"
+            subtitle="Browse authentic portfolios in an addictive, TikTok-style feed—see real projects, not just resumes."
+            align="left"
+          />
+          <ul className="mt-8 space-y-4 text-gray-700">
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-indigo-600" />
+              Authentic project reels & case studies.
+            </li>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-indigo-600" />
+              Instant messaging & booking.
+            </li>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-indigo-600" />
+              Global talent, localized budgets.
+            </li>
+          </ul>
+        </div>
+        <div ref={addToRefs} className="section-hidden order-1 md:order-2">
+          <img
+            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1470&q=80"
+            alt="Portfolio grid demo"
+            className="w-full rounded-2xl shadow-xl ring-1 ring-gray-200"
+          />
+        </div>
+      </div>
+    </Section>
+  );
+};
+
+/* Smart Talent Filtering Section */
+const FilterChip = ({ icon, label }) => (
+  <span className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-700 shadow-sm hover:shadow-md transition-shadow">
+    {icon}
+    {label}
+  </span>
+);
+
+const SmartFiltering = () => {
+  const addToRefs = useScrollAnimation();
+  return (
+    <Section id="explore-features" className="bg-gray-50">
+      <div className="grid items-center gap-12 md:grid-cols-2">
+        <div ref={addToRefs} className="section-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1470&q=80"
+            alt="Talent filtering UI"
+            className="w-full rounded-2xl shadow-xl ring-1 ring-gray-200"
+          />
+        </div>
+        <div ref={addToRefs} className="section-hidden">
+          <SectionHeader
+            kicker="Search & Match"
+            title="Find Talent Your Way"
+            subtitle="Sort instantly by skills, price, and availability to match your needs and budget—with zero hidden costs."
+            align="left"
+          />
+          <div className="mt-8 flex flex-wrap gap-4">
+            <FilterChip icon={<Filter />} label="Skill" />
+            <FilterChip icon={<DollarSign />} label="Budget" />
+            <FilterChip icon={<Timer />} label="Availability" />
+            <FilterChip icon={<Globe2 />} label="Location" />
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+};
+
+/* Top 1% Screening Section */
+const screeningItems = [
+  {
+    icon: <VideoIcon className="h-6 w-6" />,
+    title: "Portfolio Quality",
+    desc: "Strong work samples reviewed by experts.",
+  },
+  {
+    icon: <Zap className="h-6 w-6" />,
+    title: "Turnaround Speed",
+    desc: "Measured delivery benchmarks.",
+  },
+  {
+    icon: <Users className="h-6 w-6" />,
+    title: "English Fluency",
+    desc: "Language & communication checks.",
+  },
+  {
+    icon: <Search className="h-6 w-6" />,
+    title: "Attention to Detail",
+    desc: "Pixel-level QA review.",
+  },
+];
+
+const Screening = () => {
+  const addToRefs = useScrollAnimation();
+  return (
+    <Section id="screening-quality">
+      <div className="flex flex-col items-center">
+        <div ref={addToRefs} className="section-hidden">
+          <SectionHeader
+            kicker="Quality"
+            title="Only the Top 1% Make the Cut"
+            subtitle="Every candidate passes our industry-best screening, tailored for their specialty. Every showcased project is manually verified for authenticity."
+          />
+        </div>
+        <ul className="mt-12 grid w-full max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {screeningItems.map((item) => (
+            <li
+              key={item.title}
+              ref={addToRefs}
+              className="section-hidden group rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+            >
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100 transition-colors">
+                {item.icon}
+              </div>
+              <h3 className="font-semibold text-gray-900">{item.title}</h3>
+              <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Section>
+  );
+};
+
+/* Transparent Pricing Section */
+const PricingCard = ({ title, priceDesc, bullets }) => (
+  <div className="relative flex flex-col rounded-2xl border border-indigo-200 bg-white p-8 shadow-sm hover:shadow-lg transition-shadow">
+    <h3 className="text-2xl font-bold text-gray-900">{title}</h3>
+    <p className="mt-2 text-lg text-indigo-600">{priceDesc}</p>
+    <ul className="mt-6 space-y-2 text-gray-700">
+      {bullets.map((b) => (
+        <li key={b} className="flex items-start gap-2 text-sm">
+          <CheckCircle2 className="mt-0.5 h-4 w-4 text-indigo-600" />
+          {b}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+const Pricing = () => {
+  const addToRefs = useScrollAnimation();
+  return (
+    <Section id="pricing-details" className="bg-gray-50">
+      <div className="flex flex-col items-center">
+        <div ref={addToRefs} className="section-hidden">
+          <SectionHeader
+            kicker="Pricing"
+            title="Transparent, Simple Pricing. No Guesswork."
+            subtitle="No hidden markups. Know exactly what you pay before you hire."
+          />
+        </div>
+        <div className="mt-12 grid w-full max-w-4xl gap-8 md:grid-cols-2">
+          <div ref={addToRefs} className="section-hidden">
+            <PricingCard
+              title="Clear Placement Fee"
+              priceDesc="Just 1 month of candidate's annual salary."
+              bullets={[
+                "Upfront & visible on profile",
+                "Due at hiring",
+                "One-time fee",
+              ]}
+            />
+          </div>
+          <div ref={addToRefs} className="section-hidden">
+            <PricingCard
+              title="Low Monthly Maintenance"
+              priceDesc="Flat support + payroll management."
+              bullets={[
+                "Secure payments",
+                "Ongoing talent support",
+                "Issue resolution",
+              ]}
+            />
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+};
+
+/* Direct Hiring Advantage Section */
+const DirectHiring = () => {
+  const addToRefs = useScrollAnimation();
+  return (
+    <Section id="direct-hiring">
+      <div className="grid items-center gap-12 md:grid-cols-2">
+        <div ref={addToRefs} className="section-hidden order-2 md:order-1">
+          <SectionHeader
+            kicker="No Middlemen"
+            title="Direct Hiring. No Middlemen, No Markups."
+            subtitle="Skip agencies and recruiters—your investment goes straight to the creative who does the work. All terms are clear; never any hidden fees."
+            align="left"
+          />
+          <ul className="mt-8 space-y-4 text-gray-700">
+            <li className="flex items-start gap-3">
+              <DollarSign className="mt-1 h-5 w-5 text-indigo-600" />
+              Transparent pricing per profile.
+            </li>
+            <li className="flex items-start gap-3">
+              <Handshake className="mt-1 h-5 w-5 text-indigo-600" />
+              Direct contracts & communication.
+            </li>
+            <li className="flex items-start gap-3">
+              <Wallet className="mt-1 h-5 w-5 text-indigo-600" />
+              Funds flow to talent, not layers of middlemen.
+            </li>
+          </ul>
+        </div>
+        <div ref={addToRefs} className="section-hidden order-1 md:order-2">
+          <img
+            src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1470&q=80"
+            alt="Direct vs Agency comparison"
+            className="w-full rounded-2xl shadow-xl ring-1 ring-gray-200"
+          />
+        </div>
+      </div>
+    </Section>
+  );
+};
+
+/* Protection / Rights Section */
+const ProtectionCard = ({ icon, title, desc }) => (
+  <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm hover:shadow-lg transition-shadow">
+    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-indigo-50 text-indigo-600">
+      {icon}
+    </div>
+    <h3 className="font-semibold text-gray-900">{title}</h3>
+    <p className="mt-2 text-sm text-gray-600">{desc}</p>
+  </div>
+);
+
+const Protection = () => {
+  const addToRefs = useScrollAnimation();
+  return (
+    <Section id="protection-rights" className="bg-gray-50">
+      <div className="flex flex-col items-center">
+        <div ref={addToRefs} className="section-hidden">
+          <SectionHeader
+            kicker="Trust"
+            title="Your Rights & Results, Always Protected"
+            subtitle="Robust agreements, secure IP, and ongoing partnership from onboarding through delivery."
+          />
+        </div>
+        <div className="mt-12 grid w-full max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div ref={addToRefs} className="section-hidden">
+            <ProtectionCard
+              icon={<ShieldCheck className="h-8 w-8" />}
+              title="Rock-Solid Contracts"
+              desc="IP & deliverables secured in legally reviewed agreements."
+            />
+          </div>
+          <div ref={addToRefs} className="section-hidden">
+            <ProtectionCard
+              icon={<FileCheck2 className="h-8 w-8" />}
+              title="Clear Deliverables"
+              desc="Milestone-based work tracking & acceptance."
+            />
+          </div>
+          <div ref={addToRefs} className="section-hidden">
+            <ProtectionCard
+              icon={<Settings className="h-8 w-8" />}
+              title="Ongoing Partnership"
+              desc="Support from onboarding to payroll & dispute resolution."
+            />
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+};
+
+/* How It Works (3 Steps) */
+const steps = [
+  {
+    step: "1",
+    title: "Scroll",
+    desc: "Explore portfolios in a seamless, short-video feed.",
+    icon: <VideoIcon className="h-8 w-8" />,
+  },
+  {
+    step: "2",
+    title: "Select",
+    desc: "Filter by skills, price & more; connect instantly.",
+    icon: <Filter className="h-8 w-8" />,
+  },
+  {
+    step: "3",
+    title: "Hired",
+    desc: "Sign, onboard & collaborate—often in under 24 hrs.",
+    icon: <Handshake className="h-8 w-8" />,
+  },
+];
+
+const StepCard = ({ step, title, desc, icon }) => (
+  <div className="relative flex flex-col items-center rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm hover:shadow-lg transition-shadow">
+    <div className="absolute -top-5 flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600 text-white text-sm font-bold">
+      {step}
+    </div>
+    <div className="mb-4 text-indigo-600">{icon}</div>
+    <h3 className="font-semibold text-gray-900">{title}</h3>
+    <p className="mt-2 text-sm text-gray-600">{desc}</p>
+  </div>
+);
+
+const HowItWorks = () => {
+  const addToRefs = useScrollAnimation();
+  return (
+    <Section id="how-it-works-marketing">
+      <div className="flex flex-col items-center">
+        <div ref={addToRefs} className="section-hidden">
+          <SectionHeader
+            kicker="Process"
+            title="How HireCreatives Works"
+            subtitle="Three simple steps from discovery to done."
+          />
+        </div>
+        <ol className="mt-12 grid w-full max-w-5xl gap-8 md:grid-cols-3">
+          {steps.map((s) => (
+            <li key={s.step} ref={addToRefs} className="section-hidden">
+              <StepCard {...s} />
+            </li>
+          ))}
+        </ol>
+      </div>
+    </Section>
+  );
+};
+
+/* Why Teams Love HireCreatives */
+const whyItems = [
+  {
+    icon: <Timer className="h-8 w-8" />,
+    title: "Hire in Days, Not Months",
+    desc: "Pre-vetted creatives placed fast—often within 2 weeks.",
+  },
+  {
+    icon: <DollarSign className="h-8 w-8" />,
+    title: "Save 60–70% on Creative Costs",
+    desc: "Global hiring without US agency markups.",
+  },
+  {
+    icon: <Users className="h-8 w-8" />,
+    title: "Expertly Trained Talent",
+    desc: "Upskilled creatives ready to plug into your workflow.",
+  },
+  {
+    icon: <Shield className="h-8 w-8" />,
+    title: "Zero Hassles",
+    desc: "Payments, contracts & compliance handled for you.",
+  },
+];
+
+const WhyTeamsLove = () => {
+  const addToRefs = useScrollAnimation();
+  return (
+    <Section id="why-teams-love-marketing" className="bg-gray-50">
+      <div className="flex flex-col items-center">
+        <div ref={addToRefs} className="section-hidden">
+          <SectionHeader kicker="Benefits" title="Why Teams Love HireCreatives" />
+        </div>
+        <ul className="mt-12 grid w-full max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {whyItems.map((item) => (
+            <li
+              key={item.title}
+              ref={addToRefs}
+              className="section-hidden rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm hover:shadow-lg transition-shadow"
+            >
+              <div className="mx-auto mb-4 text-indigo-600">{item.icon}</div>
+              <h3 className="font-semibold text-gray-900">{item.title}</h3>
+              <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Section>
+  );
+};
+
+/* Global animation styles injected once at render */
+const GlobalStyles = () => (
+  <style>{`
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section-hidden { opacity: 0; transform: translateY(30px); }
+    .animate-fade-in-up { opacity: 1 !important; transform: translateY(0) !important; animation: fadeInUp 0.8s ease-out forwards; }
+    .delay-0 { animation-delay: 0s; }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+  `}</style>
 );
 
 /* ===========================================================
@@ -781,15 +1292,31 @@ const Landing = () => {
         {/* 3x3 Grid - Responsive */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {portfolioItems.map((item, index) => (
-            <VideoCard
+            <div
               key={`${item.name}-${index}`}
-              src={item.video}
-              poster={item.poster}
-              label={item.name}
-            />
+              className="flex flex-col items-center"
+            >
+              <VideoCard src={item.video} poster={item.poster} />
+              <span className="mt-3 text-base font-semibold text-gray-900 text-center">
+                {item.name}
+              </span>
+            </div>
           ))}
         </div>
       </section>
+
+      {/* ====== INSERTED MARKETING SECTIONS BEFORE FOOTER ====== */}
+      <Unlock />
+      <SmartFiltering />
+      <Screening />
+      {/* keep original #pricing anchor satisfied by a small wrapper */}
+      <div id="pricing">
+        <Pricing />
+      </div>
+      <DirectHiring />
+      <Protection />
+      <HowItWorks />
+      <WhyTeamsLove />
 
       {/* FOOTER SECTION */}
       <footer className="bg-gray-900 text-white py-16">
@@ -817,6 +1344,9 @@ const Landing = () => {
           </div>
         </div>
       </footer>
+
+      {/* Animation CSS */}
+      <GlobalStyles />
     </div>
   );
 };
