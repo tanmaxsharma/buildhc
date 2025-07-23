@@ -1,1 +1,5 @@
+body {
+  font-family: 'Outfit', 'Lexend', 'Josefin Sans', 'Michroma', sans-serif;
+}
+
 @import "tailwindcss";

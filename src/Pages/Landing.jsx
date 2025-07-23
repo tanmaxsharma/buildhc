@@ -858,42 +858,111 @@ const Pricing = () => {
 };
 
 /* Direct Hiring Advantage Section */
+/* Direct Hiring Advantage Section */
 const DirectHiring = () => {
   const addToRefs = useScrollAnimation();
+
   return (
-    <Section id="direct-hiring">
-      <div className="grid items-center gap-12 md:grid-cols-2">
-        <div ref={addToRefs} className="section-hidden order-2 md:order-1">
-          <SectionHeader
-            kicker="No Middlemen"
-            title="Direct Hiring. No Middlemen, No Markups."
-            subtitle="Skip agencies and recruiters—your investment goes straight to the creative who does the work. All terms are clear; never any hidden fees."
-            align="left"
-          />
-          <ul className="mt-8 space-y-4 text-gray-700">
-            <li className="flex items-start gap-3">
-              <DollarSign className="mt-1 h-5 w-5 text-indigo-600" />
-              Transparent pricing per profile.
-            </li>
-            <li className="flex items-start gap-3">
-              <Handshake className="mt-1 h-5 w-5 text-indigo-600" />
-              Direct contracts & communication.
-            </li>
-            <li className="flex items-start gap-3">
-              <Wallet className="mt-1 h-5 w-5 text-indigo-600" />
-              Funds flow to talent, not layers of middlemen.
-            </li>
-          </ul>
-        </div>
-        <div ref={addToRefs} className="section-hidden order-1 md:order-2">
-          <img
-            src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1470&q=80"
-            alt="Direct vs Agency comparison"
-            className="w-full rounded-2xl shadow-xl ring-1 ring-gray-200"
-          />
+    <div className="bg-gray-50 py-16 px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Left Content */}
+          <div ref={addToRefs} className="section-hidden space-y-10">
+            {/* Main Heading */}
+            <div>
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2 leading-tight">
+                Hire top creatives—fast and transparently.
+              </h1>
+              <p className="text-gray-600 mt-3 leading-relaxed">
+                Scroll real portfolios, connect instantly, and hire the top 1%
+                of creative talent with zero hassle.
+              </p>
+            </div>
+
+            {/* Direct Hiring Section */}
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Direct Hiring. Zero Middlemen.
+              </h2>
+              <p className="text-gray-600 mb-5 leading-relaxed">
+                Skip agencies and recruiters—your budget goes straight to the
+                experts who deliver the work.
+              </p>
+            </div>
+
+            {/* Transparent Pricing Section */}
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Transparent, Simple Pricing.
+              </h2>
+              <p className="text-gray-600 mb-5 leading-relaxed">
+                One upfront placement fee plus a low monthly charge—no hidden
+                costs, no guesswork.
+              </p>
+            </div>
+
+            {/* Expertly Trained Section */}
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Vetted & Expertly Trained.
+              </h2>
+              <p className="text-gray-600 leading-relaxed">
+                Every creative is tested for quality, speed, English fluency,
+                and attention to detail.
+              </p>
+            </div>
+          </div>
+
+          {/* Right Content - Images and Stats Grid */}
+          <div
+            ref={addToRefs}
+            className="section-hidden grid grid-cols-2 gap-4"
+          >
+            {/* First Image - spans full width */}
+            <div className="col-span-2 rounded-3xl overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Professional working on laptop"
+                className="w-full h-64 object-cover"
+              />
+            </div>
+
+            {/* Top Right Stat */}
+            <div className="bg-cyan-300 rounded-3xl p-6">
+              <div className="text-4xl font-bold text-gray-900 mb-2">70%</div>
+              <div className="text-gray-800 font-medium text-sm">
+                Average savings on creative costs with global top talent
+              </div>
+            </div>
+
+            {/* Middle Stat */}
+            <div className="bg-green-300 rounded-3xl p-6">
+              <div className="text-4xl font-bold text-gray-900 mb-2">07d</div>
+              <div className="text-gray-800 font-medium text-sm">
+                Average time to hire top 1% creatives ready to work
+              </div>
+            </div>
+
+            {/* Bottom Stat */}
+            <div className="bg-purple-300 rounded-3xl p-6">
+              <div className="text-4xl font-bold text-gray-900 mb-2">4%</div>
+              <div className="text-gray-800 font-medium text-sm">
+                Replacement rate—expertly vetted talent you can trust
+              </div>
+            </div>
+
+            {/* Second Image */}
+            <div className="rounded-3xl overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1581368121163-0d9c85127cdd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Professional in workspace"
+                className="w-full h-32 object-cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </Section>
+    </div>
   );
 };
 
@@ -951,41 +1020,32 @@ const Protection = () => {
 /* How It Works (3 Steps) */
 const steps = [
   {
-    step: "1",
+    id: 1,
     title: "Scroll",
-    desc: "Explore portfolios in a seamless, short-video feed.",
-    icon: <VideoIcon className="h-8 w-8" />,
+    description: "Explore portfolios in a seamless, short-video feed.",
+    img: "https://cdn.prod.website-files.com/65f82769357f2cd4f6b6e20e/6614ffcebef262d3802179d2_hiw_img1%402x.webp",
   },
   {
-    step: "2",
+    id: 2,
     title: "Select",
-    desc: "Filter by skills, price & more; connect instantly.",
-    icon: <Filter className="h-8 w-8" />,
+    description: "Filter by skills, price & more; connect instantly.",
+    img: "https://cdn.prod.website-files.com/65f82769357f2cd4f6b6e20e/6614ffcecd4993ceaf2e0144_hiw_img2%402x.webp",
   },
   {
-    step: "3",
+    id: 3,
     title: "Hired",
-    desc: "Sign, onboard & collaborate—often in under 24 hrs.",
-    icon: <Handshake className="h-8 w-8" />,
+    description: "Sign, onboard & collaborate often in under 24 hrs.",
+    img: "https://cdn.prod.website-files.com/65f82769357f2cd4f6b6e20e/6614ffd29cb927fa32ece0bc_hiw_img3%402x.webp",
   },
 ];
 
-const StepCard = ({ step, title, desc, icon }) => (
-  <div className="relative flex flex-col items-center rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm hover:shadow-lg transition-shadow">
-    <div className="absolute -top-5 flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600 text-white text-sm font-bold">
-      {step}
-    </div>
-    <div className="mb-4 text-indigo-600">{icon}</div>
-    <h3 className="font-semibold text-gray-900">{title}</h3>
-    <p className="mt-2 text-sm text-gray-600">{desc}</p>
-  </div>
-);
-
 const HowItWorks = () => {
   const addToRefs = useScrollAnimation();
+
   return (
     <Section id="how-it-works-marketing">
       <div className="flex flex-col items-center">
+        {/* Heading */}
         <div ref={addToRefs} className="section-hidden">
           <SectionHeader
             kicker="Process"
@@ -993,13 +1053,37 @@ const HowItWorks = () => {
             subtitle="Three simple steps from discovery to done."
           />
         </div>
-        <ol className="mt-12 grid w-full max-w-5xl gap-8 md:grid-cols-3">
-          {steps.map((s) => (
-            <li key={s.step} ref={addToRefs} className="section-hidden">
-              <StepCard {...s} />
-            </li>
+
+        {/* Steps */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+          {steps.map((step) => (
+            <div
+              key={step.id}
+              ref={addToRefs}
+              className="section-hidden flex flex-col items-center text-center"
+            >
+              {/* Step Number */}
+              <div className="w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold mb-4">
+                {step.id}
+              </div>
+
+              {/* Title & Description */}
+              <h3 className="text-xl font-semibold text-gray-900">
+                {step.title}
+              </h3>
+              <p className="mt-2 mb-4 text-gray-600">{step.description}</p>
+
+              {/* Image */}
+              <div className="w-full rounded-xl overflow-hidden shadow-md">
+                <img
+                  src={step.img}
+                  alt={step.title}
+                  className="w-full h-52 object-cover"
+                />
+              </div>
+            </div>
           ))}
-        </ol>
+        </div>
       </div>
     </Section>
   );
@@ -1035,7 +1119,10 @@ const WhyTeamsLove = () => {
     <Section id="why-teams-love-marketing" className="bg-gray-50">
       <div className="flex flex-col items-center">
         <div ref={addToRefs} className="section-hidden">
-          <SectionHeader kicker="Benefits" title="Why Teams Love HireCreatives" />
+          <SectionHeader
+            kicker="Benefits"
+            title="Why Teams Love HireCreatives"
+          />
         </div>
         <ul className="mt-12 grid w-full max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {whyItems.map((item) => (
