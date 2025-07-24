@@ -768,44 +768,47 @@ const screeningItems = [
   },
 ];
 
-const Screening = () => {
-  const addToRefs = useScrollAnimation();
-  return (
-    <Section id="screening-quality">
-      <div className="flex flex-col items-center">
-        <div ref={addToRefs} className="section-hidden">
-          <SectionHeader
-            kicker="Quality"
-            title="Only the Top 1% Make the Cut"
-            subtitle="Every candidate passes our industry-best screening, tailored for their specialty. Every showcased project is manually verified for authenticity."
-          />
-        </div>
-        <ul className="mt-12 grid w-full max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {screeningItems.map((item) => (
-            <li
-              key={item.title}
-              ref={addToRefs}
-              className="section-hidden group rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-            >
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100 transition-colors">
-                {item.icon}
-              </div>
-              <h3 className="font-semibold text-gray-900">{item.title}</h3>
-              <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </Section>
-  );
-};
+// const Screening = () => {
+//   const addToRefs = useScrollAnimation();
+//   return (
+//     <Section id="screening-quality">
+//       <div className="flex flex-col items-center">
+//         <div ref={addToRefs} className="section-hidden">
+//           <SectionHeader
+//             kicker="Quality"
+//             title="Only the Top 1% Make the Cut"
+//             subtitle="Every candidate passes our industry-best screening, tailored for their specialty. Every showcased project is manually verified for authenticity."
+//           />
+//         </div>
+//         <ul className="mt-12 grid w-full max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
+//           {screeningItems.map((item) => (
+//             <li
+//               key={item.title}
+//               ref={addToRefs}
+//               className="section-hidden group rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+//             >
+//               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100 transition-colors">
+//                 {item.icon}
+//               </div>
+//               <h3 className="font-semibold text-gray-900">{item.title}</h3>
+//               <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//     </Section>
+//   );
+// };
 
-/* Transparent Pricing Section */
-const PricingCard = ({ title, priceDesc, bullets }) => (
-  <div className="relative flex flex-col rounded-2xl border border-indigo-200 bg-white p-8 shadow-sm hover:shadow-lg transition-shadow">
-    <h3 className="text-2xl font-bold text-gray-900">{title}</h3>
-    <p className="mt-2 text-lg text-indigo-600">{priceDesc}</p>
-    <ul className="mt-6 space-y-2 text-gray-700">
+// Updated PricingCard with icons + visuals
+const PricingCard = ({ title, priceDesc, bullets, icon }) => (
+  <div className="relative flex flex-col rounded-2xl border border-indigo-200 bg-white p-8 shadow-sm hover:shadow-xl transition-all duration-300">
+    <div className="mb-4 flex justify-center">
+      <img src={icon} alt={`${title} icon`} className="h-12 w-12" />
+    </div>
+    <h3 className="text-2xl font-bold text-gray-900 text-center">{title}</h3>
+    <p className="mt-2 text-lg text-indigo-600 text-center">{priceDesc}</p>
+    <ul className="mt-6 space-y-3 text-gray-700">
       {bullets.map((b) => (
         <li key={b} className="flex items-start gap-2 text-sm">
           <CheckCircle2 className="mt-0.5 h-4 w-4 text-indigo-600" />
@@ -819,7 +822,7 @@ const PricingCard = ({ title, priceDesc, bullets }) => (
 const Pricing = () => {
   const addToRefs = useScrollAnimation();
   return (
-    <Section id="pricing-details" className="bg-gray-50">
+    <Section id="pricing-details" className="bg-gray-50 py-16">
       <div className="flex flex-col items-center">
         <div ref={addToRefs} className="section-hidden">
           <SectionHeader
@@ -828,11 +831,12 @@ const Pricing = () => {
             subtitle="No hidden markups. Know exactly what you pay before you hire."
           />
         </div>
-        <div className="mt-12 grid w-full max-w-4xl gap-8 md:grid-cols-2">
+        <div className="mt-12 grid w-full max-w-5xl gap-8 md:grid-cols-2">
           <div ref={addToRefs} className="section-hidden">
             <PricingCard
               title="Clear Placement Fee"
               priceDesc="Just 1 month of candidate's annual salary."
+              icon="https://res.cloudinary.com/dhtp47auy/image/upload/v1753368860/undraw_remote-worker_0l91_nqfawq.svg"
               bullets={[
                 "Upfront & visible on profile",
                 "Due at hiring",
@@ -844,6 +848,7 @@ const Pricing = () => {
             <PricingCard
               title="Low Monthly Maintenance"
               priceDesc="Flat support + payroll management."
+              icon="https://res.cloudinary.com/dhtp47auy/image/upload/v1753368859/undraw_screen-time_f7ev_fpbmrz.svg"
               bullets={[
                 "Secure payments",
                 "Ongoing talent support",
@@ -857,7 +862,6 @@ const Pricing = () => {
   );
 };
 
-/* Direct Hiring Advantage Section */
 /* Direct Hiring Advantage Section */
 const DirectHiring = () => {
   const addToRefs = useScrollAnimation();
@@ -1089,56 +1093,69 @@ const HowItWorks = () => {
   );
 };
 
-/* Why Teams Love HireCreatives */
-const whyItems = [
-  {
-    icon: <Timer className="h-8 w-8" />,
-    title: "Hire in Days, Not Months",
-    desc: "Pre-vetted creatives placed fast—often within 2 weeks.",
-  },
-  {
-    icon: <DollarSign className="h-8 w-8" />,
-    title: "Save 60–70% on Creative Costs",
-    desc: "Global hiring without US agency markups.",
-  },
-  {
-    icon: <Users className="h-8 w-8" />,
-    title: "Expertly Trained Talent",
-    desc: "Upskilled creatives ready to plug into your workflow.",
-  },
-  {
-    icon: <Shield className="h-8 w-8" />,
-    title: "Zero Hassles",
-    desc: "Payments, contracts & compliance handled for you.",
-  },
-];
-
-const WhyTeamsLove = () => {
-  const addToRefs = useScrollAnimation();
+const HireCreativesBenefits = () => {
   return (
-    <Section id="why-teams-love-marketing" className="bg-gray-50">
-      <div className="flex flex-col items-center">
-        <div ref={addToRefs} className="section-hidden">
-          <SectionHeader
-            kicker="Benefits"
-            title="Why Teams Love HireCreatives"
-          />
+    <section className="relative py-20 px-4 sm:px-10 bg-white overflow-hidden">
+      {/* Background SVG line image */}
+      <img
+        src="https://cdn.prod.website-files.com/65f82769357f2cd4f6b6e20e/66156a7df86116541db731a6_cta_card-img.svg"
+        alt="Background Line"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/2 opacity-60 pointer-events-none hidden md:block"
+      />
+
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {/* Left Content */}
+        <div className="space-y-6">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 ">
+            Only the Top 1% Make the Cut
+          </h2>
+          <p className="text-lg text-gray-700">
+            Every HireCreatives candidate passes our industry-best screening,
+            tailored for their specialty. For video editors, our process
+            rigorously tests for:
+          </p>
+          <ul className="list-disc pl-5 text-gray-700 space-y-1">
+            <li>Portfolio quality</li>
+            <li>Turnaround speed</li>
+            <li>English fluency</li>
+            <li>Precision and attention to detail</li>
+          </ul>
+          <button className="mt-4 bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 transition">
+            Hire Top Talent
+          </button>
         </div>
-        <ul className="mt-12 grid w-full max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {whyItems.map((item) => (
-            <li
-              key={item.title}
-              ref={addToRefs}
-              className="section-hidden rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm hover:shadow-lg transition-shadow"
-            >
-              <div className="mx-auto mb-4 text-indigo-600">{item.icon}</div>
-              <h3 className="font-semibold text-gray-900">{item.title}</h3>
-              <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
-            </li>
-          ))}
-        </ul>
+
+        {/* Right Side Avatars */}
+        <div className="flex justify-center md:justify-end relative">
+          <div className="relative w-80 h-80">
+            {/* Avatar 1 */}
+            <img
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              alt="Avatar 1"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full border-4 border-white shadow-lg"
+            />
+            {/* Avatar 2 */}
+            <img
+              src="https://randomuser.me/api/portraits/men/46.jpg"
+              alt="Avatar 2"
+              className="absolute top-1/4 left-0 transform -translate-x-1/2 w-20 h-20 rounded-full border-4 border-white shadow-lg"
+            />
+            {/* Avatar 3 */}
+            <img
+              src="https://randomuser.me/api/portraits/women/68.jpg"
+              alt="Avatar 3"
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full border-4 border-white shadow-lg"
+            />
+            {/* Avatar 4 */}
+            <img
+              src="https://randomuser.me/api/portraits/men/35.jpg"
+              alt="Avatar 4"
+              className="absolute bottom-0 right-0 w-20 h-20 rounded-full border-4 border-white shadow-lg"
+            />
+          </div>
+        </div>
       </div>
-    </Section>
+    </section>
   );
 };
 
@@ -1395,7 +1412,7 @@ const Landing = () => {
       {/* ====== INSERTED MARKETING SECTIONS BEFORE FOOTER ====== */}
       <Unlock />
       <SmartFiltering />
-      <Screening />
+      {/* <Screening /> */}
       {/* keep original #pricing anchor satisfied by a small wrapper */}
       <div id="pricing">
         <Pricing />
@@ -1403,7 +1420,7 @@ const Landing = () => {
       <DirectHiring />
       <Protection />
       <HowItWorks />
-      <WhyTeamsLove />
+      <HireCreativesBenefits />
 
       {/* FOOTER SECTION */}
       <footer className="bg-gray-900 text-white py-16">
