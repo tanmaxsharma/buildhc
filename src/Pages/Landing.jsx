@@ -31,9 +31,6 @@ import {
   Settings,
 } from "lucide-react";
 
-/* -----------------------------------------------------------
- * PUBLIC TEST VIDEO URLS (direct MP4 streams, cross‑origin friendly)
- * ----------------------------------------------------------- */
 const VIDEO_SOURCES = {
   flower:
     "https://videos.pexels.com/video-files/4464847/4464847-uhd_2560_1440_25fps.mp4",
@@ -51,12 +48,9 @@ const VIDEO_SOURCES = {
     "https://videos.pexels.com/video-files/33048633/14085868_1920_1080_25fps.mp4",
   night:
     "https://videos.pexels.com/video-files/7514220/7514220-uhd_2560_1440_25fps.mp4",
-  hero: "https://res.cloudinary.com/dhtp47auy/video/upload/v1753077039/reel_uadkgg.mp4", // Hero video
+  // hero: "https://res.cloudinary.com/dhtp47auy/video/upload/v1753077039/reel_uadkgg.mp4", // Hero video
 };
 
-/* -----------------------------------------------------------
- * POSTER IMAGES (any placeholder; replace later)
- * ----------------------------------------------------------- */
 const POSTER = {
   editor: "https://picsum.photos/id/237/600/600",
   designer: "https://picsum.photos/id/1027/600/600",
@@ -69,9 +63,6 @@ const POSTER = {
   vfx: "https://picsum.photos/id/1076/600/600",
 };
 
-/* -----------------------------------------------------------
- * 3x3 GRID WITH CREATIVE CATEGORIES
- * ----------------------------------------------------------- */
 const portfolioItems = [
   { name: "Video Editor", video: VIDEO_SOURCES.flower, poster: POSTER.editor },
   {
@@ -108,174 +99,7 @@ const portfolioItems = [
   { name: "CGI/VFX Artist", video: VIDEO_SOURCES.night, poster: POSTER.vfx },
 ];
 
-/* -----------------------------------------------------------
- * CAROUSEL DATA - Creative Specialists
- * ----------------------------------------------------------- */
-const carouselData = [
-  {
-    id: 1,
-    title: "SEO Specialists",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-    tools: ["NOTION"],
-  },
-  {
-    id: 2,
-    title: "Content SEO Specialists",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
-    tools: ["COPY.AI", "GRAMMARLY", "NOTION", "ASANA"],
-  },
-  {
-    id: 3,
-    title: "Digital Marketing Specialists",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-    tools: ["HUBSPOT", "SALESFORCE"],
-  },
-  {
-    id: 4,
-    title: "Motion Graphics Designers",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-    tools: ["ILLUSTRATOR", "PHOTOSHOP", "AFTER EFFECTS"],
-  },
-  {
-    id: 5,
-    title: "Social Media Managers",
-    image:
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=face",
-    tools: ["SLACK", "NOTION"],
-  },
-  {
-    id: 6,
-    title: "UI/UX Designers",
-    image:
-      "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&h=400&fit=crop&crop=face",
-    tools: ["FIGMA", "SKETCH", "PRINCIPLE"],
-  },
-];
 
-/* ===========================================================
- * Header Component
- * =========================================================== */
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-lg"
-          : "bg-white/80 backdrop-blur-sm"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">H</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900">
-              HireCreatives
-            </span>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <div className="relative group">
-              <button className="text-gray-700 hover:text-gray-900 font-medium flex items-center transition-colors duration-200">
-                How It Works
-                <svg
-                  className="ml-1 w-4 h-4"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
-            <a
-              href="#explore"
-              className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200"
-            >
-              Explore
-            </a>
-            <a
-              href="#pricing"
-              className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200"
-            >
-              Pricing
-            </a>
-          </nav>
-
-          {/* CTA Button */}
-          <div className="hidden md:flex">
-            <Link to="/discover">
-              <button
-                type="button"
-                className="bg-gray-900 text-white px-6 py-2 rounded-full font-medium hover:bg-gray-800 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl cursor-pointer"
-              >
-                Get Started
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
-            <nav className="flex flex-col space-y-4">
-              <a href="#how-it-works" className="text-gray-700 font-medium">
-                How It Works
-              </a>
-              <a href="#explore" className="text-gray-700 font-medium">
-                Explore
-              </a>
-              <a href="#pricing" className="text-gray-700 font-medium">
-                Pricing
-              </a>
-              <button className="bg-gray-900 text-white px-6 py-2 rounded-full font-medium w-fit">
-                Explore Talent
-              </button>
-            </nav>
-          </div>
-        )}
-      </div>
-    </header>
-  );
-};
-
-/* ===========================================================
- * Hero Video Section Component
- * =========================================================== */
 const HeroVideoSection = React.forwardRef((props, ref) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -332,139 +156,11 @@ const HeroVideoSection = React.forwardRef((props, ref) => {
 
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/40" />
-
-      {/* Optional Controls */}
-      {/* <div className="absolute bottom-8 right-8 flex space-x-2 z-10">
-        <button
-          onClick={togglePlay}
-          className="bg-white/20 backdrop-blur-sm p-3 rounded-full text-white hover:bg-white/30 transition-all duration-200"
-        >
-          {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
-        </button>
-        <button
-          onClick={toggleMute}
-          className="bg-white/20 backdrop-blur-sm p-3 rounded-full text-white hover:bg-white/30 transition-all duration-200"
-        >
-          {isMuted ? "🔇" : "🔊"}
-        </button>
-      </div> */}
     </section>
   );
 });
 HeroVideoSection.displayName = "HeroVideoSection";
 
-/* ===========================================================
- * Auto Carousel Component
- * =========================================================== */
-const AutoCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const carouselRef = useRef(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselData.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (carouselRef.current) {
-      const cardWidth = 320; // w-80 = 320px
-      const gap = 24; // gap-6 = 24px
-      const scrollPosition = currentIndex * (cardWidth + gap);
-      carouselRef.current.style.transform = `translateX(-${scrollPosition}px)`;
-    }
-  }, [currentIndex]);
-
-  const CarouselCard = ({ specialist }) => (
-    <div className="w-80 h-96 bg-white rounded-3xl shadow-xl relative overflow-hidden flex-shrink-0 hover:shadow-2xl transition-all duration-500 hover:scale-105">
-      {/* Background Circle */}
-      <div className="absolute top-8 right-8 w-64 h-64 bg-gradient-to-br from-cyan-300 to-teal-400 rounded-full -translate-y-16 translate-x-16" />
-      {/* Title */}
-      <div className="absolute top-8 left-8 z-10">
-        <h3 className="text-xl font-bold text-gray-900 leading-tight max-w-48">
-          {specialist.title}
-        </h3>
-      </div>
-      {/* Profile Image */}
-      <div className="absolute bottom-20 left-8 z-10">
-        <img
-          src={specialist.image}
-          alt={specialist.title}
-          className="w-32 h-32 rounded-2xl object-cover shadow-lg"
-        />
-      </div>
-      {/* Tools */}
-      <div className="absolute bottom-8 left-8 right-8 z-10">
-        <div className="flex flex-wrap gap-2">
-          {specialist.tools.map((tool, index) => (
-            <span
-              key={index}
-              className="bg-gray-800 text-white text-xs px-3 py-1.5 rounded-full font-medium"
-            >
-              {tool}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <section className="py-20 bg-gray-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Meet Our Creative Specialists
-          </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-            Talented professionals ready to bring your projects to life with
-            expertise and passion
-          </p>
-        </div>
-
-        {/* Carousel Container */}
-        <div className="relative">
-          <div className="overflow-hidden">
-            <div
-              ref={carouselRef}
-              className="flex gap-6 transition-transform duration-700 ease-in-out"
-              style={{ width: `${carouselData.length * 344}px` }}
-            >
-              {[...carouselData, ...carouselData.slice(0, 3)].map(
-                (specialist, index) => (
-                  <CarouselCard
-                    key={`${specialist.id}-${index}`}
-                    specialist={specialist}
-                  />
-                )
-              )}
-            </div>
-          </div>
-
-          {/* Progress Indicators */}
-          <div className="flex justify-center mt-12 space-x-3">
-            {carouselData.map((_, index) => (
-              <button
-                key={index}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? "bg-purple-600 scale-125"
-                    : "bg-gray-300 hover:bg-gray-400"
-                }`}
-                onClick={() => setCurrentIndex(index)}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-/* ===========================================================
- * VideoCard component
- * =========================================================== */
 const VideoCard = ({ src, poster }) => {
   const vidRef = useRef(null);
   const [errored, setErrored] = useState(false);
@@ -542,9 +238,6 @@ const VideoCard = ({ src, poster }) => {
   );
 };
 
-/* ===========================================================
- * Creative Cards for Hero Section
- * =========================================================== */
 const CreativeCard = ({ image, name, role, message, className = "" }) => (
   <div
     className={`bg-white rounded-2xl p-4 shadow-lg max-w-xs hover:shadow-xl transition-all duration-300 ${className}`}
@@ -563,11 +256,6 @@ const CreativeCard = ({ image, name, role, message, className = "" }) => (
     </div>
   </div>
 );
-
-/* ===========================================================
- * ============  MARKETING SECTIONS FROM PREV CODE  ==========
- * Slight ID suffixes to avoid collisions with existing anchors
- * =========================================================== */
 
 /* Scroll-trigger animation hook */
 const useScrollAnimation = () => {
@@ -768,38 +456,6 @@ const screeningItems = [
   },
 ];
 
-// const Screening = () => {
-//   const addToRefs = useScrollAnimation();
-//   return (
-//     <Section id="screening-quality">
-//       <div className="flex flex-col items-center">
-//         <div ref={addToRefs} className="section-hidden">
-//           <SectionHeader
-//             kicker="Quality"
-//             title="Only the Top 1% Make the Cut"
-//             subtitle="Every candidate passes our industry-best screening, tailored for their specialty. Every showcased project is manually verified for authenticity."
-//           />
-//         </div>
-//         <ul className="mt-12 grid w-full max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
-//           {screeningItems.map((item) => (
-//             <li
-//               key={item.title}
-//               ref={addToRefs}
-//               className="section-hidden group rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-//             >
-//               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100 transition-colors">
-//                 {item.icon}
-//               </div>
-//               <h3 className="font-semibold text-gray-900">{item.title}</h3>
-//               <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-//     </Section>
-//   );
-// };
-
 // Updated PricingCard with icons + visuals
 const PricingCard = ({ title, priceDesc, bullets, icon }) => (
   <div className="relative flex flex-col rounded-2xl border border-indigo-200 bg-white p-8 shadow-sm hover:shadow-xl transition-all duration-300">
@@ -819,42 +475,89 @@ const PricingCard = ({ title, priceDesc, bullets, icon }) => (
   </div>
 );
 
+// Header #Pricing
 const Pricing = () => {
   const addToRefs = useScrollAnimation();
   return (
     <Section id="pricing-details" className="bg-gray-50 py-16">
       <div className="flex flex-col items-center">
-        <div ref={addToRefs} className="section-hidden">
-          <SectionHeader
-            kicker="Pricing"
-            title="Transparent, Simple Pricing. No Guesswork."
-            subtitle="No hidden markups. Know exactly what you pay before you hire."
-          />
+        {/* Top SectionHeader */}
+        <div ref={addToRefs} className="section-hidden text-center mb-8">
+          <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide">
+            Pricing
+          </p>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900">
+            Transparent, Simple Pricing. No Guesswork.
+          </h2>
+          <p className="mt-4 text-base md:text-lg text-gray-600 max-w-xl mx-auto">
+            No hidden markups. Know exactly what you pay before you hire.
+          </p>
         </div>
-        <div className="mt-12 grid w-full max-w-5xl gap-8 md:grid-cols-2">
-          <div ref={addToRefs} className="section-hidden">
-            <PricingCard
-              title="Clear Placement Fee"
-              priceDesc="Just 1 month of candidate's annual salary."
-              icon="https://res.cloudinary.com/dhtp47auy/image/upload/v1753368860/undraw_remote-worker_0l91_nqfawq.svg"
-              bullets={[
+
+        {/* Pricing Cards */}
+        <div className="mt-6 grid w-full max-w-4xl gap-6 md:grid-cols-2">
+          {/* Card 1 */}
+          <div
+            ref={addToRefs}
+            className="section-hidden border rounded-2xl p-6 md:p-8 bg-white shadow-sm flex flex-col items-center text-center"
+          >
+            <img
+              src="https://res.cloudinary.com/dhtp47auy/image/upload/v1753368860/undraw_remote-worker_0l91_nqfawq.svg"
+              alt="Remote Worker"
+              className="w-32 h-32 mb-4"
+            />
+            <h3 className="text-xl font-semibold text-gray-900">
+              Clear Placement Fee
+            </h3>
+            <p className="text-indigo-600 font-medium mt-1 mb-4">
+              Just 1 month of candidate's annual salary.
+            </p>
+            <ul className="flex flex-col gap-2 mt-auto">
+              {[
                 "Upfront & visible on profile",
                 "Due at hiring",
                 "One-time fee",
-              ]}
-            />
+              ].map((item, idx) => (
+                <li
+                  key={idx}
+                  className="flex items-center justify-center text-gray-700"
+                >
+                  <span className="text-indigo-600 mr-2">✔️</span> {item}
+                </li>
+              ))}
+            </ul>
           </div>
-          <div ref={addToRefs} className="section-hidden">
-            <PricingCard
-              title="Low Monthly Maintenance"
-              priceDesc="Flat support + payroll management."
-              icon="https://res.cloudinary.com/dhtp47auy/image/upload/v1753368859/undraw_screen-time_f7ev_fpbmrz.svg"
-              bullets={[
-                "Secure payments",
-                "Ongoing talent support",
-                "Issue resolution",
-              ]}
+
+          {/* Card 2 */}
+          <div
+            ref={addToRefs}
+            className="section-hidden border rounded-2xl p-6 md:p-8 bg-white shadow-sm flex flex-col items-center text-center"
+          >
+            <img
+              src="https://res.cloudinary.com/dhtp47auy/image/upload/v1753368859/undraw_screen-time_f7ev_fpbmrz.svg"
+              alt="Screen Time"
+              className="w-32 h-32 mb-4"
             />
+            <h3 className="text-xl font-semibold text-gray-900">
+              Low Monthly Maintenance
+            </h3>
+            <p className="text-indigo-600 font-medium mt-1 mb-4">
+              Flat support + payroll management.
+            </p>
+            <ul className="flex flex-col gap-2 mt-auto">
+              {[
+                "Ongoing talent support",
+                "Secure payments",
+                "Issue resolution",
+              ].map((item, idx) => (
+                <li
+                  key={idx}
+                  className="flex items-center justify-center text-gray-700"
+                >
+                  <span className="text-indigo-600 mr-2">✔️</span> {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
@@ -862,57 +565,62 @@ const Pricing = () => {
   );
 };
 
-/* Direct Hiring Advantage Section */
 const DirectHiring = () => {
   const addToRefs = useScrollAnimation();
 
   return (
-    <div className="bg-gray-50 py-16 px-6">
+    <div className="bg-gray-50 py-20 px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div ref={addToRefs} className="section-hidden space-y-10">
+          <div
+            ref={addToRefs}
+            className="section-hidden space-y-10 text-left pr-4 max-w-2xl"
+          >
             {/* Main Heading */}
             <div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2 leading-tight">
-                Hire top creatives—fast and transparently.
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                Hire top creatives fast <br /> and transparently.
               </h1>
-              <p className="text-gray-600 mt-3 leading-relaxed">
-                Scroll real portfolios, connect instantly, and hire the top 1%
+              <p className="text-gray-600 mt-3 text-lg leading-relaxed">
+                Scroll real portfolios, connect instantly, and hire the top 1%{" "}
+                <br />
                 of creative talent with zero hassle.
               </p>
             </div>
 
             {/* Direct Hiring Section */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-2">
                 Direct Hiring. Zero Middlemen.
               </h2>
-              <p className="text-gray-600 mb-5 leading-relaxed">
-                Skip agencies and recruiters—your budget goes straight to the
+              <p className="text-gray-600 text-base leading-relaxed">
+                Skip agencies and recruiters—your budget goes straight to the{" "}
+                <br />
                 experts who deliver the work.
               </p>
             </div>
 
             {/* Transparent Pricing Section */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-2">
                 Transparent, Simple Pricing.
               </h2>
-              <p className="text-gray-600 mb-5 leading-relaxed">
-                One upfront placement fee plus a low monthly charge—no hidden
-                costs, no guesswork.
+              <p className="text-gray-600 text-base leading-relaxed">
+                One upfront placement fee plus a low monthly charge <br />
+                no hidden costs, no guesswork.
               </p>
             </div>
 
             {/* Expertly Trained Section */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-2">
                 Vetted & Expertly Trained.
               </h2>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 text-base leading-relaxed">
                 Every creative is tested for quality, speed, English fluency,
-                and attention to detail.
+                and <br />
+                attention to detail.
               </p>
             </div>
           </div>
@@ -920,47 +628,47 @@ const DirectHiring = () => {
           {/* Right Content - Images and Stats Grid */}
           <div
             ref={addToRefs}
-            className="section-hidden grid grid-cols-2 gap-4"
+            className="section-hidden grid grid-cols-2 gap-4 max-w-2xl"
           >
-            {/* First Image - spans full width */}
+            {/* First Image */}
             <div className="col-span-2 rounded-3xl overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?q=80&w=1170&auto=format&fit=crop"
                 alt="Professional working on laptop"
-                className="w-full h-64 object-cover"
+                className="w-full h-72 object-cover"
               />
             </div>
 
-            {/* Top Right Stat */}
-            <div className="bg-cyan-300 rounded-3xl p-6">
-              <div className="text-4xl font-bold text-gray-900 mb-2">70%</div>
-              <div className="text-gray-800 font-medium text-sm">
+            {/* Top Stat */}
+            <div className="bg-cyan-300 rounded-3xl p-6 shadow">
+              <div className="text-4xl font-bold text-gray-900 mb-1">70%</div>
+              <p className="text-sm text-gray-800 font-medium">
                 Average savings on creative costs with global top talent
-              </div>
+              </p>
             </div>
 
             {/* Middle Stat */}
-            <div className="bg-green-300 rounded-3xl p-6">
-              <div className="text-4xl font-bold text-gray-900 mb-2">07d</div>
-              <div className="text-gray-800 font-medium text-sm">
-                Average time to hire top 1% creatives ready to work
-              </div>
+            <div className="bg-green-300 rounded-3xl p-6 shadow">
+              <div className="text-4xl font-bold text-gray-900 mb-1">07d</div>
+              <p className="text-sm text-gray-800 font-medium">
+                Avg. time to hire top 1% creatives ready to work
+              </p>
             </div>
 
             {/* Bottom Stat */}
-            <div className="bg-purple-300 rounded-3xl p-6">
-              <div className="text-4xl font-bold text-gray-900 mb-2">4%</div>
-              <div className="text-gray-800 font-medium text-sm">
-                Replacement rate—expertly vetted talent you can trust
-              </div>
+            <div className="bg-purple-300 rounded-3xl p-6 shadow col-span-2 sm:col-span-1">
+              <div className="text-4xl font-bold text-gray-900 mb-1">4%</div>
+              <p className="text-sm text-gray-800 font-medium">
+                Replacement rate — expertly vetted talent you can trust
+              </p>
             </div>
 
             {/* Second Image */}
             <div className="rounded-3xl overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1581368121163-0d9c85127cdd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="https://images.unsplash.com/photo-1581368121163-0d9c85127cdd?q=80&w=1170&auto=format&fit=crop"
                 alt="Professional in workspace"
-                className="w-full h-32 object-cover"
+                className="w-full h-36 object-cover"
               />
             </div>
           </div>
@@ -969,6 +677,7 @@ const DirectHiring = () => {
     </div>
   );
 };
+
 
 /* Protection / Rights Section */
 const ProtectionCard = ({ icon, title, desc }) => (
@@ -1173,10 +882,6 @@ const GlobalStyles = () => (
     .delay-200 { animation-delay: 0.2s; }
   `}</style>
 );
-
-/* ===========================================================
- * Landing Page (MAIN)
- * =========================================================== */
 const Landing = () => {
   // --- GSAP refs ---
   const scrollRowRef = useRef(null); // Scroll · Select · Hired row
@@ -1210,37 +915,40 @@ const Landing = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* HEADER */}
-      <Header />
-
       {/* HERO SECTION */}
-      <div className="pt-20 min-h-screen relative bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 overflow-hidden flex flex-col justify-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+      <div className="pt-20 pb-20 sm:pb-0 min-h-screen relative bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden flex flex-col justify-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="relative">
+          <div className="relative order-2 lg:order-1 text-center lg:text-left">
             {/* Profile Images */}
-            <div className="flex items-center space-x-1 mb-6">
+            <div className="flex justify-center lg:justify-start items-center space-x-1 mb-6">
+              {/* ... same image tags */}
               <img
                 src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=400&fit=crop&crop=face"
                 alt="Creative 1"
-                className="w-12 h-12 rounded-full border-2 border-white shadow-sm"
+                className="w-12 h-12 rounded-full border-2 border-gray-700 shadow-sm"
               />
               <img
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
                 alt="Creative 2"
-                className="w-12 h-12 rounded-full border-2 border-white shadow-sm -ml-2"
+                className="w-12 h-12 rounded-full border-2 border-gray-700 shadow-sm -ml-2"
               />
               <img
                 src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=40&h=40&fit=crop&crop=face"
                 alt="Creative 3"
-                className="w-12 h-12 rounded-full border-2 border-white shadow-sm -ml-2"
+                className="w-12 h-12 rounded-full border-2 border-gray-700 shadow-sm -ml-2"
               />
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
               The Smarter Way to Hire Creative Talent.
             </h1>
 
-            <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-lg">
+            <h3 className="text-xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mb-6">
+              Scroll. Select. Hired
+            </h3>
+
+            <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0">
               Welcome to HireCreatives—the world's first creative hiring
               platform where you scroll verified portfolios like a social feed,
               connect instantly, and hire the top 1% of talent.
@@ -1249,130 +957,41 @@ const Landing = () => {
             <Link to="/discover">
               <button
                 type="button"
-                className="bg-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-700 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer"
+                className="bg-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-700 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer mx-auto lg:mx-0"
               >
                 <span>Explore Talent</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 mb" />
               </button>
             </Link>
           </div>
 
-          {/* Right Content - Creative Cards */}
-          <div className="relative hidden lg:block">
-            {/* Main Creative Card */}
-            <div className="relative z-10">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face"
-                alt="Featured Creative"
-                className="w-80 h-96 rounded-2xl object-cover shadow-xl"
-              />
-            </div>
+          {/* Right Content - iPhone Mockup with Video Inside */}
+          <div className="relative flex justify-center lg:justify-end pr-0 lg:pr-12 order-1 lg:order-2 mt-12 sm:mt-0">
+            <div className="relative w-[250px] sm:w-[280px] lg:w-[300px] h-[500px] sm:h-[550px] lg:h-[600px] flex items-center justify-center scale-90 sm:scale-100">
+              {/* iPhone Frame */}
+              <div className="absolute top-0 left-0 w-full h-full rounded-[3rem] border-[14px] border-black bg-black shadow-2xl z-10" />
 
-            {/* Floating Message Cards */}
-            <CreativeCard
-              image="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=400&fit=crop&crop=face"
-              name="Candy"
-              role="Your Recruiter"
-              message="Hey! We're ready to place Simon for your Video Editor Role!"
-              className="absolute -top-4 -right-8 z-20"
-            />
+              {/* Notch */}
+              <div className="absolute top-[14px] left-1/2 -translate-x-1/2 w-[90px] sm:w-[120px] h-[30px] bg-black rounded-b-[1.5rem] z-20" />
 
-            <CreativeCard
-              image="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=40&h=40&fit=crop&crop=face"
-              name="Scale Chart"
-              role=""
-              message="Scale your team, scale your business"
-              className="absolute bottom-20 -left-8 z-20 bg-teal-100"
-            />
-
-            {/* Second Creative Image */}
-            <img
-              src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=400&fit=crop&crop=face"
-              alt="Creative 2"
-              className="absolute bottom-0 right-12 w-64 h-80 rounded-2xl object-cover shadow-lg z-5"
-            />
-          </div>
-        </div>
-
-        {/* Scroll · Select · Hired  --- GSAP LIFT TARGET */}
-        <div className="mt-16 lg:mt-24 w-full flex justify-center px-4">
-          <div
-            ref={scrollRowRef}
-            className="scroll-select-card flex flex-row items-center justify-center gap-6 sm:gap-12 text-gray-800 flex-wrap
-                       bg-white/90 backdrop-blur-md px-8 py-6 rounded-3xl border border-gray-200
-                       shadow-md will-change-transform transform-gpu"
-          >
-            {/* Scroll */}
-            <div className="flex flex-col items-center">
-              <svg
-                className="w-8 h-8 sm:w-10 sm:h-10 mb-2 text-indigo-600"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <rect x="6" y="2" width="12" height="20" rx="4" />
-                <path
-                  d="M12 17v-3m0 0l-1.5 1.5M12 14l1.5 1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+              {/* Video inside screen */}
+              <div className="w-[222px] sm:w-[252px] lg:w-[272px] h-[472px] sm:h-[522px] lg:h-[572px] rounded-[2rem] overflow-hidden z-30">
+                <video
+                  src="https://res.cloudinary.com/dhtp47auy/video/upload/v1753077039/reel_uadkgg.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
                 />
-                <circle cx="12" cy="7" r="1" fill="currentColor" />
-              </svg>
-              <span className="font-bold text-lg sm:text-xl">Scroll</span>
-            </div>
-
-            <span className="text-2xl font-bold">·</span>
-
-            {/* Select */}
-            <div className="flex flex-col items-center">
-              <svg
-                className="w-8 h-8 sm:w-10 sm:h-10 mb-2 text-indigo-600"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <path
-                  d="M3 3l7 18 2-8 8-2L3 3z"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span className="font-bold text-lg sm:text-xl">Select</span>
-            </div>
-
-            <span className="text-2xl font-bold">·</span>
-
-            {/* Hired */}
-            <div className="flex flex-col items-center">
-              <svg
-                className="w-8 h-8 sm:w-10 sm:h-10 mb-2 text-indigo-600"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 12l-3 3a2 2 0 11-2.83-2.83L9.17 9l2.83 2.83zM12 12l3-3a2 2 0 012.83 2.83L14.83 15l-2.83-2.83z"
-                />
-              </svg>
-              <span className="font-bold text-lg sm:text-xl">Hired</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* HERO VIDEO SECTION (ScrollTrigger trigger) */}
-      <HeroVideoSection ref={heroVideoRef} />
-
-      {/* AUTO CAROUSEL SECTION */}
-      <AutoCarousel />
+      {/* <HeroVideoSection ref={heroVideoRef} /> */}
 
       {/* PORTFOLIO VIDEO GRID */}
       <section
@@ -1381,16 +1000,16 @@ const Landing = () => {
       >
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
-            Made with love, on HireCreatives
+            Discover Our Top Talent
           </h2>
           <p className="mb-8 text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
             Browse stunning portfolios from talented Creators, ready to bring
             your vision to life with exceptional creativity and professional
             excellence.
           </p>
-          <button className="bg-gray-900 text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+          {/* <button className="bg-gray-900 text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
             View All Portfolios
-          </button>
+          </button> */}
         </div>
 
         {/* 3x3 Grid - Responsive */}
