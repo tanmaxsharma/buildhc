@@ -99,7 +99,6 @@ const portfolioItems = [
   // { name: "CGI/VFX Artist", video: VIDEO_SOURCES.night, poster: POSTER.vfx },
 ];
 
-
 const HeroVideoSection = React.forwardRef((props, ref) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -353,39 +352,55 @@ const SectionHeader = ({
   );
 };
 
-/* Unlock Elite Creatives Section */
 const Unlock = () => {
   const addToRefs = useScrollAnimation();
+
   return (
     <Section id="unlock-elite">
-      <div className="grid items-center gap-12 md:grid-cols-2">
-        <div ref={addToRefs} className="section-hidden order-2 md:order-1">
-          <SectionHeader
-            kicker="Elite Talent"
-            title="Unlock Elite Creatives, Effortlessly"
-            subtitle="Browse authentic portfolios in an addictive, TikTok-style feed—see real projects, not just resumes."
-            align="left"
-          />
-          <ul className="mt-8 space-y-4 text-gray-700">
-            <li className="flex items-start gap-3">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-indigo-600" />
-              Authentic project reels & case studies.
-            </li>
-            <li className="flex items-start gap-3">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-indigo-600" />
-              Instant messaging & booking.
-            </li>
-            <li className="flex items-start gap-3">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-indigo-600" />
-              Global talent, localized budgets.
-            </li>
-          </ul>
+      <div className="grid md:grid-cols-2 gap-12 items-stretch">
+        {/* Left Content */}
+        <div
+          ref={addToRefs}
+          className="section-hidden order-2 md:order-1 flex flex-col justify-center h-full px-4 max-w-2xl mx-auto"
+        >
+          <div>
+            <p className="text-indigo-600 font-semibold text-2xl mb-2">
+              Elite Talent
+            </p>
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-4">
+              Unlock Elite Creatives, Effortlessly
+            </h2>
+            <p className="text-gray-700 text-lg sm:text-xl leading-relaxed mb-8">
+              Browse authentic portfolios in an addictive, TikTok-style <br />{" "}
+              feed see real projects, not just resumes.
+            </p>
+
+            <ul className="space-y-5 text-gray-800 text-lg">
+              <li className="flex items-start gap-4">
+                <CheckCircle2 className="h-6 w-6 text-indigo-600 mt-1" />
+                <span>Authentic project reels & case studies.</span>
+              </li>
+              <li className="flex items-start gap-4">
+                <CheckCircle2 className="h-6 w-6 text-indigo-600 mt-1" />
+                <span>Instant messaging & booking.</span>
+              </li>
+              <li className="flex items-start gap-4">
+                <CheckCircle2 className="h-6 w-6 text-indigo-600 mt-1" />
+                <span>Global talent, localized budgets.</span>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div ref={addToRefs} className="section-hidden order-1 md:order-2">
+
+        {/* Right Image */}
+        <div
+          ref={addToRefs}
+          className="section-hidden order-1 md:order-2 flex items-center justify-center h-full max-w-2xl mx-auto"
+        >
           <img
             src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1470&q=80"
             alt="Portfolio grid demo"
-            className="w-full rounded-2xl shadow-xl ring-1 ring-gray-200"
+            className="w-full rounded-2xl shadow-xl ring-1 ring-gray-200 object-cover"
           />
         </div>
       </div>
@@ -403,28 +418,51 @@ const FilterChip = ({ icon, label }) => (
 
 const SmartFiltering = () => {
   const addToRefs = useScrollAnimation();
+
   return (
     <Section id="explore-features" className="bg-gray-50">
-      <div className="grid items-center gap-12 md:grid-cols-2">
-        <div ref={addToRefs} className="section-hidden">
+      <div className="grid md:grid-cols-2 gap-12 items-stretch">
+        {/* Left Image */}
+        <div
+          ref={addToRefs}
+          className="section-hidden order-1 md:order-1 flex items-center justify-center h-full max-w-2xl mx-auto"
+        >
           <img
             src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1470&q=80"
             alt="Talent filtering UI"
-            className="w-full rounded-2xl shadow-xl ring-1 ring-gray-200"
+            className="w-full rounded-2xl shadow-xl ring-1 ring-gray-200 object-cover"
           />
         </div>
-        <div ref={addToRefs} className="section-hidden">
-          <SectionHeader
-            kicker="Search & Match"
-            title="Find Talent Your Way"
-            subtitle="Sort instantly by skills, price, and availability to match your needs and budget—with zero hidden costs."
-            align="left"
-          />
-          <div className="mt-8 flex flex-wrap gap-4">
-            <FilterChip icon={<Filter />} label="Skill" />
-            <FilterChip icon={<DollarSign />} label="Budget" />
-            <FilterChip icon={<Timer />} label="Availability" />
-            <FilterChip icon={<Globe2 />} label="Location" />
+
+        {/* Right Content */}
+        <div
+          ref={addToRefs}
+          className="section-hidden order-2 md:order-2 flex flex-col justify-center h-full px-4 max-w-2xl mx-auto"
+        >
+          <div>
+            {/* Enhanced Kicker */}
+            <p className="text-indigo-600 font-semibold text-2xl mb-2">
+              Search & Match
+            </p>
+
+            {/* Main Title */}
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-4">
+              Find Talent Your Way
+            </h2>
+
+            {/* Subtitle */}
+            <p className="text-gray-700 text-lg sm:text-xl leading-relaxed mb-8">
+              Sort instantly by skills, price, and availability to match your
+              needs and budget — with zero hidden costs.
+            </p>
+
+            {/* Feature Chips */}
+            <div className="flex flex-wrap gap-4">
+              <FilterChip icon={<Filter />} label="Skill" />
+              <FilterChip icon={<DollarSign />} label="Budget" />
+              <FilterChip icon={<Timer />} label="Availability" />
+              <FilterChip icon={<Globe2 />} label="Location" />
+            </div>
           </div>
         </div>
       </div>
@@ -483,9 +521,7 @@ const Pricing = () => {
       <div className="flex flex-col items-center">
         {/* Top SectionHeader */}
         <div ref={addToRefs} className="section-hidden text-center mb-8">
-          <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide">
-            Pricing
-          </p>
+          <p className="text-indigo-600 font-semibold text-2xl mb-2">Pricing</p>
           <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900">
             Transparent, Simple Pricing. No Guesswork.
           </h2>
@@ -678,48 +714,60 @@ const DirectHiring = () => {
   );
 };
 
-
 /* Protection / Rights Section */
 const ProtectionCard = ({ icon, title, desc }) => (
-  <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm hover:shadow-lg transition-shadow">
-    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-indigo-50 text-indigo-600">
+  <div className="group flex flex-col h-full p-6 rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gray-200 hover:-translate-y-1">
+    <div className="w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white group-hover:scale-105 transition-transform">
       {icon}
     </div>
-    <h3 className="font-semibold text-gray-900">{title}</h3>
-    <p className="mt-2 text-sm text-gray-600">{desc}</p>
+    <h4 className="text-xl font-semibold text-gray-800 mb-2">{title}</h4>
+    <p className="text-gray-600 text-sm leading-relaxed flex-grow">{desc}</p>
+    {/* Optional: add a call to action or footer if needed */}
   </div>
 );
 
 const Protection = () => {
   const addToRefs = useScrollAnimation();
+
   return (
-    <Section id="protection-rights" className="bg-gray-50">
+    <Section
+      id="protection-rights"
+      className="bg-gradient-to-b from-gray-50 via-white to-gray-100 py-20"
+    >
       <div className="flex flex-col items-center">
-        <div ref={addToRefs} className="section-hidden">
-          <SectionHeader
-            kicker="Trust"
-            title="Your Rights & Results, Always Protected"
-            subtitle="Robust agreements, secure IP, and ongoing partnership from onboarding through delivery."
-          />
+        {/* Header */}
+        <div ref={addToRefs} className="section-hidden text-center mb-8">
+          <p className="text-indigo-600 font-semibold text-2xl mb-2">Trust</p>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900">
+            Your Rights & Results, Always Protected
+          </h2>
+          <p className="mt-4 text-base md:text-lg text-gray-600 max-w-xl mx-auto">
+            Robust agreements, secure IP, and ongoing partnership from
+            onboarding through delivery.
+          </p>
         </div>
-        <div className="mt-12 grid w-full max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <div ref={addToRefs} className="section-hidden">
+
+        {/* Cards Grid */}
+        <div className="mt-16 grid w-full max-w-6xl gap-8 sm:grid-cols-2 lg:grid-cols-3 px-4 items-stretch">
+          <div ref={addToRefs} className="section-hidden h-full">
             <ProtectionCard
-              icon={<ShieldCheck className="h-8 w-8" />}
+              icon={<ShieldCheck className="h-6 w-6" />}
               title="Rock-Solid Contracts"
               desc="IP & deliverables secured in legally reviewed agreements."
             />
           </div>
-          <div ref={addToRefs} className="section-hidden">
+
+          <div ref={addToRefs} className="section-hidden h-full">
             <ProtectionCard
-              icon={<FileCheck2 className="h-8 w-8" />}
+              icon={<FileCheck2 className="h-6 w-6" />}
               title="Clear Deliverables"
               desc="Milestone-based work tracking & acceptance."
             />
           </div>
-          <div ref={addToRefs} className="section-hidden">
+
+          <div ref={addToRefs} className="section-hidden h-full">
             <ProtectionCard
-              icon={<Settings className="h-8 w-8" />}
+              icon={<Settings className="h-6 w-6" />}
               title="Ongoing Partnership"
               desc="Support from onboarding to payroll & dispute resolution."
             />
@@ -759,12 +807,14 @@ const HowItWorks = () => {
     <Section id="how-it-works-marketing">
       <div className="flex flex-col items-center">
         {/* Heading */}
-        <div ref={addToRefs} className="section-hidden">
-          <SectionHeader
-            kicker="Process"
-            title="How HireCreatives Works"
-            subtitle="Three simple steps from discovery to done."
-          />
+        <div ref={addToRefs} className="section-hidden text-center mb-8">
+          <p className="text-indigo-600 font-semibold text-2xl mb-2">Process</p>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900">
+            How HireCreatives Works
+          </h2>
+          <p className="mt-4 text-base md:text-lg text-gray-600 max-w-xl mx-auto">
+            Three simple steps from discovery to done.
+          </p>
         </div>
 
         {/* Steps */}
@@ -815,8 +865,8 @@ const HireCreativesBenefits = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left Content */}
         <div className="space-y-6">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 ">
-            Only the Top 1% Make the Cut
+          <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900">
+            Only the Top 1% <br /> Make the Cut
           </h2>
           <p className="text-lg text-gray-700">
             Every HireCreatives candidate passes our industry-best screening,
@@ -966,7 +1016,7 @@ const Landing = () => {
           </div>
 
           {/* Right Content - iPhone Mockup with Video Inside */}
-          <div className="relative flex justify-center lg:justify-end pr-0 lg:pr-12 order-1 lg:order-2 mt-12 sm:mt-0">
+          <div className="relative flex justify-center lg:justify-end pr-0 lg:pr-12 order-1 lg:order-2 mt-16 sm:mt-0">
             <div className="relative w-[250px] sm:w-[280px] lg:w-[300px] h-[500px] sm:h-[550px] lg:h-[600px] flex items-center justify-center scale-90 sm:scale-100">
               {/* iPhone Frame */}
               <div className="absolute top-0 left-0 w-full h-full rounded-[3rem] border-[14px] border-black bg-black shadow-2xl z-10" />
@@ -1020,7 +1070,7 @@ const Landing = () => {
               className="flex flex-col items-center"
             >
               <VideoCard src={item.video} poster={item.poster} />
-              <span className="mt-3 text-base font-semibold text-gray-900 text-center">
+              <span className="mt-3 text-2xl font-semibold text-gray-900 text-center">
                 {item.name}
               </span>
             </div>
