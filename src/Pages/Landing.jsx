@@ -699,14 +699,15 @@ const DirectHiring = () => {
               </p>
             </div>
 
-            {/* Second Image */}
-            <div className="rounded-3xl overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1581368121163-0d9c85127cdd?q=80&w=1170&auto=format&fit=crop"
-                alt="Professional in workspace"
-                className="w-full h-36 object-cover"
-              />
-            </div>
+           {/* Second Image */}
+<div className="hidden md:block rounded-3xl overflow-hidden">
+  <img
+    src="https://images.unsplash.com/photo-1581368121163-0d9c85127cdd?q=80&w=1170&auto=format&fit=crop"
+    alt="Professional in workspace"
+    className="w-full h-36 object-cover"
+  />
+</div>
+
           </div>
         </div>
       </div>
